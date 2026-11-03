@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Mon Bilan Prévention – Nouvelle Pharmacie Stéphanie</title>
+<style>
+:root{--pri:#0f6e66;--pri-d:#0a4f49;--pri-l:#e3f4f2;--ink:#1c2b2a;--mut:#5d6e6c;--bg:#f2f6f6;--card:#fff;--line:#d3dedd;
+--red:#b3261e;--red-l:#fdecea;--org:#b85c00;--org-l:#fff1de;--blu:#1f6fb2;--blu-l:#e6f1fb;--grn:#2e7d32;--grn-l:#e7f5e8}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:18px;line-height:1.4}
+header.top{background:var(--pri);color:#fff;padding:10px 20px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:20}
+header.top .brand{font-weight:700;font-size:19px;flex:1}
+header.top .brand small{display:block;font-weight:400;font-size:13px;opacity:.85}
+header.top button{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:8px;padding:8px 14px;font-size:15px;cursor:pointer}
+.steps{display:flex;gap:6px;font-size:13px}
+.steps span{padding:4px 10px;border-radius:99px;background:rgba(255,255,255,.15)}
+.steps span.on{background:#fff;color:var(--pri);font-weight:700}
+main{max-width:1000px;margin:0 auto;padding:20px 16px 90px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:16px}
+h1{font-size:28px;margin:0 0 6px}
+h2{font-size:22px;margin:0 0 12px}
+h3{font-size:18px;margin:16px 0 8px}
+.mut{color:var(--mut)}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.row>*{flex:1 1 200px}
+label.f{display:block;font-weight:600;font-size:15px;margin-bottom:4px}
+input[type=text],input[type=number],input[type=password],select,textarea{width:100%;font:inherit;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+textarea{min-height:70px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:3px solid #7fcdc5;border-color:var(--pri)}
+.btn{font:inherit;font-weight:600;border:0;border-radius:12px;padding:14px 24px;background:var(--pri);color:#fff;cursor:pointer;min-height:52px}
+.btn:disabled{background:#a9bcba;cursor:not-allowed}
+.btn.sec{background:#fff;color:var(--pri);border:2px solid var(--pri)}
+.btn.sm{padding:8px 14px;min-height:40px;font-size:15px}
+.btn.warn{background:var(--org)}
+.bar{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--line);padding:10px 16px;display:flex;gap:10px;justify-content:space-between;z-index:15}
+.bar .in{max-width:1000px;margin:0 auto;display:flex;gap:10px;justify-content:space-between;width:100%}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-size:17px;border:2px solid var(--line);background:#fff;color:var(--ink);border-radius:12px;padding:12px 16px;min-height:52px;cursor:pointer;text-align:left}
+.chip.on{background:var(--pri);border-color:var(--pri);color:#fff;font-weight:600}
+.chip.sm{min-height:40px;padding:6px 12px;font-size:15px}
+.chip.num{min-width:46px;text-align:center;padding:8px}
+.q{padding:16px 0;border-bottom:1px solid #edf2f2}
+.q:last-child{border-bottom:0}
+.qt{font-weight:600;margin-bottom:10px}
+.hint{font-size:14px;color:var(--mut);margin:-6px 0 10px}
+.numrow{display:flex;align-items:center;gap:10px;max-width:260px}
+.prog{height:8px;background:#dbe6e5;border-radius:99px;overflow:hidden;margin-bottom:6px}
+.prog i{display:block;height:100%;background:var(--pri)}
+.dots{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.dots button{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;border-radius:99px;padding:4px 10px;cursor:pointer;color:var(--mut)}
+.dots button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+.dots button.done{border-color:var(--pri);color:var(--pri)}
+.badge{display:inline-block;border-radius:99px;padding:2px 10px;font-size:13px;font-weight:700;margin-right:6px}
+.b-R{background:var(--red-l);color:var(--red)}.b-O{background:var(--org-l);color:var(--org)}.b-B{background:var(--blu-l);color:var(--blu)}.b-G{background:var(--grn-l);color:var(--grn)}
+.alert{border-left:6px solid;border-radius:8px;padding:10px 14px;margin-bottom:8px;background:#fff;border:1px solid var(--line);border-left-width:6px}
+.alert.R{border-left-color:var(--red);background:var(--red-l)}.alert.O{border-left-color:var(--org);background:var(--org-l)}.alert.B{border-left-color:var(--blu);background:var(--blu-l)}
+.alert .th{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--mut)}
+.alert .act{font-size:15px;margin-top:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.theme{border:2px solid var(--line);border-radius:12px;padding:12px;background:#fff;cursor:pointer;font:inherit;text-align:left}
+.theme.on{border-color:var(--pri);background:var(--pri-l)}
+.theme b{display:block}
+.kpis{display:flex;gap:10px;flex-wrap:wrap}
+.kpi{background:var(--pri-l);border-radius:12px;padding:10px 14px;min-width:150px}
+.kpi small{display:block;color:var(--mut);font-size:13px}
+.kpi b{font-size:20px}
+.tabs{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.chk{display:flex;gap:10px;align-items:flex-start;padding:8px 0;cursor:pointer}
+.chk input{width:24px;height:24px;margin-top:2px;flex:none}
+details.card summary{cursor:pointer;font-weight:700;font-size:19px}
+.toast{position:fixed;top:70px;left:50%;transform:translateX(-50%);background:#222;color:#fff;padding:10px 18px;border-radius:10px;z-index:50;font-size:15px}
+.note{background:var(--blu-l);border-radius:10px;padding:10px 14px;font-size:15px}
+.note.w{background:var(--org-l)}
+.sheet{background:#fff;border:1px solid var(--line);padding:14mm;max-width:210mm;margin:0 auto;font-size:12.5px;line-height:1.35}
+.sheet h1{font-size:19px;margin:0}.sheet h2{font-size:14px;margin:12px 0 5px;padding:3px 8px;background:#e3f4f2;border-left:4px solid #0f6e66}
+.sheet table{width:100%;border-collapse:collapse}
+.sheet td,.sheet th{border:1px solid #b8c7c5;padding:4px 6px;vertical-align:top;text-align:left}
+.sheet .g2{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+.sheet ul{margin:2px 0 4px;padding-left:18px}
+.sheet .lh{display:flex;justify-content:space-between;border-bottom:2px solid #0f6e66;padding-bottom:6px;margin-bottom:8px}
+.sheet .sm{font-size:11px;color:#444}
+.sheet .box{border:1px solid #888;padding:6px 8px;margin:4px 0}
+#printArea{display:none}
+@media print{
+  body{background:#fff;font-size:12px}
+  #app,.toast{display:none!important}
+  #printArea{display:block}
+  #printArea .sheet{border:0;padding:0;max-width:none;margin:0}
+  @page{size:A4;margin:11mm}
+  .sheet h2,.sheet .box,.sheet table{break-inside:avoid}
+}
+@media (max-width:700px){.steps{display:none}}
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="top">
+    <div class="brand">Mon Bilan Prévention<small id="hsub">Nouvelle Pharmacie Stéphanie · Strasbourg</small></div>
+    <div class="steps" id="steps"></div>
+    <button data-a="reset">Nouveau patient</button>
+  </header>
+  <main id="view"></main>
+</div>
+<div id="printArea"></div>
+
+<script>
+/* ============================================================
+   CONFIGURATION (à adapter)
+   ============================================================ */
+const CONFIG={
+  pharmacie:'Nouvelle Pharmacie Stéphanie',
+  ville:'Strasbourg',
+  pin:'1234',               // verrou « espace pharmacien » : simple confort d’usage, PAS une sécurité. À changer.
+  services:[                // services proposables à l’officine (cases à cocher dans le cockpit)
+    {id:'bpm',label:'Bilan partagé de médication (BPM)'},
+    {id:'vaccin',label:'Vaccination à l’officine'},
+    {id:'sevrage',label:'Accompagnement au sevrage tabagique'},
+    {id:'doccr',label:'Remise du kit de dépistage colorectal'},
+    {id:'trod',label:'Dépistage rapide / orientation dépistage VIH-IST'},
+    {id:'skinmed',label:'SkinMed'},
+    {id:'tension',label:'Automesure / suivi tensionnel'}
+  ]
+};
+
+/* ============================================================
+   OUTILS
+   ============================================================ */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const today=()=>new Date().toLocaleDateString('fr-FR');
+const ck=b=>b?'☒':'☐';
+const TR={'18':'18–25 ans','45':'45–50 ans','60':'60–65 ans','70':'70–75 ans'};
+const trOf=a=>a>=18&&a<=25?'18':a>=45&&a<=50?'45':a>=60&&a<=65?'60':a>=70&&a<=75?'70':null;
+
+let S;
+function fresh(){
+  return {view:'home',sec:0,name:'',first:'',age:'',sex:'',tr:null,forced:null,consent:false,assisted:false,express:true,unlocked:false,doc:'ppp',
+    ans:{},
+    ph:{sys:'',dia:'',mt:'',nbMeds:'',interact:false,mdph:false,face:'',cast:'',notes:'',pharmacien:'',
+        prios:[],obj:{},imp:{},conf:{},acts:{},extra:{},suivi:{},todo:{},services:{},svcInit:false,transmis:true}};
+}
+S=fresh();
+
+const A=id=>S.ans[id];
+const has=(id,v)=>{const x=S.ans[id];return Array.isArray(x)?x.includes(v):x===v;};
+const isF=()=>S.sex!=='H';           // questions « spécifiques femme » (inclut « autre » par prudence)
+const num=v=>{const n=parseFloat(String(v).replace(',','.'));return isNaN(n)?null:n;};
+const heightM=()=>{const h=num(A('taille'));if(!h)return null;return h>3?h/100:h;};
+const imc=()=>{const h=heightM(),w=num(A('poids'));return h&&w?w/(h*h):null;};
+
+/* ============================================================
+   BANQUE DE QUESTIONS — d’après les 4 auto-questionnaires officiels
+   (Ministère de la Santé · « Mon Bilan Prévention » 18-25, 45-50, 60-65, 70-75 ans)
+   ============================================================ */
+const YN=[['oui','Oui'],['non','Non']];
+const YNN=[['oui','Oui'],['non','Non'],['nsp','Je ne sais pas']];
+const F4=[['0','Jamais'],['1','Plusieurs jours'],['2','Plus de sept jours'],['3','Presque tous les jours']];
+const SCR5=[['d','Tous les jours'],['p','Pas tous les jours'],['n','Non']]; // 70-75
+const FRUITS=[['5','Au moins 5 portions par jour'],['1-4','Entre 1 et 4 portions par jour'],['tps','De temps en temps'],['rare','Rarement'],['jamais','Jamais']];
+const GRAS=[['j','Plusieurs fois par jour'],['sem','Plusieurs fois par semaine'],['1sem','Une fois par semaine'],['1mois','Une fois par mois'],['jamais','Jamais']];
+const ASSIS=[['<2','Moins de 2 heures'],['2-4','Entre 2 et 4 heures'],['4-7','Entre 4 et 7 heures'],['>7','Plus de 7 heures'],['nsp','Je ne sais pas']];
+const ECRAN=[['<1','Moins d’une heure'],['1-2','Entre 1 et 2 heures'],['2-4','Entre 2 et 4 heures'],['>4','Plus de 4 heures'],['nsp','Je ne sais pas']];
+const DEP4=[['m2','Oui, il y a moins de 2 ans'],['p2','Oui, il y a plus de 2 ans'],['j','Non, jamais'],['nsp','Je ne sais pas']];
+const FROT=[['m5','Oui, il y a moins de 5 ans'],['p5','Oui, il y a plus de 5 ans'],['j','Non, jamais'],['nsp','Je ne sais pas']];
+const MAL={
+ '18':[['diab','Diabète'],['congen','Maladie congénitale'],['allergie','Allergie(s)'],['cancer','Cancers'],['resp','Maladies respiratoires (asthme…)'],['psy','Dépression, troubles anxieux et/ou troubles du comportement alimentaire'],['autre','Autre(s) maladie(s)'],['aucune','Aucune']],
+ '45':[['metab','Hypertension artérielle, diabète, cholestérol élevé'],['cv','Maladies cardiovasculaires (infarctus, maladie coronaire, insuffisance cardiaque, AVC…)'],['cancer','Cancers'],['resp','Maladies respiratoires (asthme, bronchite chronique, BPCO)'],['mici','Maladie inflammatoire chronique de l’intestin (Crohn, RCH)'],['autre','Autre(s) maladie(s)'],['aucune','Aucune']],
+ '60':[['metab','Hypertension artérielle, diabète, cholestérol élevé'],['cv','Maladies cardiovasculaires (infarctus, maladie coronaire, insuffisance cardiaque, AVC…)'],['cancer','Cancers'],['resp','Maladies respiratoires (asthme, bronchite chronique, BPCO)'],['arthrose','Arthrose ou maladie rhumatismale'],['fract','Fracture d’une vertèbre ou du col du fémur et/ou ostéoporose'],['autre','Autre(s) maladie(s)'],['aucune','Aucune']],
+ '70':[['cv','Maladies cardiovasculaires (diabète, HTA, insuffisance rénale chronique, insuffisance cardiaque, hypercholestérolémie)'],['cancer','Cancers'],['resp','Maladies respiratoires (asthme, BPCO)'],['mici','Maladie inflammatoire chronique de l’intestin'],['polypes','Polypes colorectaux'],['dmla','Dégénérescence maculaire liée à l’âge (DMLA)'],['fract','Fracture d’une vertèbre ou du col du fémur et/ou ostéoporose'],['aucune','Aucune']]
+};
+const SUJ={
+ '18':[['sommeil','Mieux dormir'],['alim','Améliorer mon alimentation et bouger plus'],['tabac','Réduire ou arrêter le tabac'],['alcool','Réduire ou arrêter l’alcool'],['mental','Améliorer mon bien-être mental, réduire mon stress'],['ecran','Passer moins de temps devant un écran'],['depistage','Mieux m’informer sur les dépistages']],
+ '45':[['alim','Améliorer mon alimentation et bouger plus'],['tabac','Réduire ou arrêter le tabac'],['alcool','Réduire ou arrêter l’alcool'],['mental','Améliorer mon bien-être mental, réduire mon stress'],['menopause','Mieux comprendre la ménopause et prévenir certains effets'],['ecran','Passer moins de temps devant un écran'],['depistage','Mieux m’informer sur les dépistages']],
+ '60':[['sommeil','Mieux dormir'],['alim','Améliorer mon alimentation et bouger plus'],['tabac','Réduire ou arrêter le tabac'],['alcool','Réduire ou arrêter l’alcool'],['mental','Améliorer mon bien-être mental, réduire mon stress'],['vieillissement','Mieux connaître / prévenir les effets du vieillissement'],['depistage','Mieux m’informer sur les dépistages']],
+ '70':[['sommeil','Mieux dormir'],['alim','M’alimenter plus sainement / bouger plus'],['tabac','Arrêter de fumer'],['alcool','Réduire ma consommation d’alcool'],['vieillissement','Entretenir ma mémoire et améliorer mon équilibre'],['violences','Lutter contre / prévenir les violences, harcèlements, discriminations'],['mental','Améliorer mon bien-être mental, être plus zen']]
+};
+const SECS=[['soc','Vous et votre situation'],['ant','Antécédents et traitements'],['sante','Votre santé actuelle'],['alim','Activité physique et alimentation'],['vacc','Vaccins, dépistages, santé sexuelle'],['addic','Alcool, tabac, autres substances'],['mental','Bien-être mental, sommeil, violences'],['prio','Vos priorités']];
+const T4=['18','45','60','70'],T3=['45','60','70'],T2=['45','60'],T1=['18','45','60'];
+
+const Q=[
+/* --- Situation --- */
+{id:'activite',sec:'soc',ages:['18'],t:'Vous êtes actuellement…',type:'single',opts:[['etudes','En études'],['emploi','En emploi'],['chomage','À la recherche d’un emploi'],['cumul','En cumul études-emploi'],['autre','Autre']]},
+{id:'logement',sec:'soc',ages:['18'],t:'Vous habitez…',type:'single',opts:[['seul','Seul(e)'],['parents','Chez vos parents'],['couple','En couple'],['autres','Avec d’autres personnes (amis, colocataires…)']]},
+{id:'enfants',sec:'soc',ages:['18','45'],t:()=>S.tr==='45'?'Avez-vous un ou plusieurs enfants à la maison ?':'Avez-vous un ou plusieurs enfants ?',type:'single',opts:YN},
+{id:'enfantsSeul',sec:'soc',ages:['18','45'],when:()=>has('enfants','oui'),t:'Les élevez-vous seul(e) ?',type:'single',opts:YN},
+{id:'projetEnfant',sec:'soc',ages:['18'],t:'Envisagez-vous d’avoir un enfant dans les 5 prochaines années ?',type:'single',opts:YNN},
+{id:'aidant',sec:'soc',ages:T4,t:'Assumez-vous un rôle d’aidant (aide régulière et fréquente à une personne en raison de son âge, d’une maladie ou d’un handicap) ?',type:'single',opts:YN},
+{id:'entourage',sec:'soc',ages:T4,t:'En cas de besoin, pouvez-vous compter sur une personne de votre entourage ?',type:'single',opts:YN},
+{id:'conditions',sec:'soc',ages:['18','45'],t:()=>S.tr==='18'?'Jugez-vous vos conditions de vie, de travail ou d’études difficiles / pénibles ?':'Vos conditions de vie et/ou de travail sont-elles difficiles / pénibles ?',type:'single',opts:YN},
+{id:'contacts',sec:'soc',ages:['60','70'],t:'Au cours des 6 derniers mois, avez-vous eu des contacts avec des proches (amis, famille) ?',type:'single',opts:YN},
+{id:'retraiteRegard',sec:'soc',ages:['60','70'],t:'Votre regard sur le fait de passer ou d’être à la retraite est…',type:'single',opts:[['tp','Très positif'],['pp','Plutôt positif'],['pn','Plutôt négatif'],['tn','Très négatif']]},
+{id:'retraiteProjets',sec:'soc',ages:['60','70'],t:'À l’approche de la retraite (ou depuis le passage à la retraite), avez-vous de nouveaux projets (passe-temps, sorties, associations…) ?',type:'single',opts:[['fait','Oui, déjà mis en place'],['prevu','Oui, prévus mais pas encore concrétisés'],['non','Non, je ne sais pas encore']]},
+/* --- Antécédents --- */
+{id:'maladies',sec:'ant',ages:T4,t:'Avez-vous ou avez-vous eu une de ces maladies ou facteurs de risque ?',type:'multi',opts:()=>MAL[S.tr],hint:'Plusieurs réponses possibles'},
+{id:'hospit',sec:'ant',ages:['18','70'],t:'Avez-vous déjà été hospitalisé(e) ?',type:'single',opts:YN},
+{id:'bilanBio',sec:'ant',ages:T4,t:'À quand remonte votre dernière prise de sang et/ou analyse d’urine ?',type:'single',opts:()=>S.tr==='18'?[['m6','Moins de 6 mois'],['p6','Plus de 6 mois'],['j','Jamais réalisée']]:[['m6','Moins de 6 mois'],['p6','Plus de 6 mois']],hint:'Idéalement, apportez les résultats lors du bilan.'},
+{id:'famille',sec:'ant',ages:T4,t:'Des personnes de votre famille proche (mère, père, sœur, frère) ont-elles eu des maladies connues (diabète, hypertension, cancer, infarctus, mort subite, cholestérol familial, ostéoporose…) ?',type:'single',opts:YNN},
+{id:'traitement',sec:'ant',ages:T4,t:'Suivez-vous actuellement un traitement ?',type:'single',opts:YN,hint:'Si oui, apportez vos ordonnances si possible.'},
+{id:'nbMeds',sec:'ant',ages:T4,when:()=>has('traitement','oui'),t:'Combien de médicaments prenez-vous en tout (avec ou sans ordonnance) ?',type:'num',unit:'médicaments'},
+/* --- Santé actuelle --- */
+{id:'poidsVar',sec:'sante',ages:T4,t:'Avez-vous constaté une variation de votre poids ces 6 derniers mois ?',type:'single',opts:[['maigre','Oui, un amaigrissement'],['prise','Oui, une prise de poids'],['non','Non']]},
+{id:'oedemes',sec:'sante',ages:T3,t:'Avez-vous observé des gonflements importants et/ou inhabituels des chevilles ou des jambes ?',type:'single',opts:YN},
+{id:'thorax',sec:'sante',ages:['60'],t:'Vous arrive-t-il d’avoir des douleurs dans la poitrine, notamment lors d’un effort ?',type:'single',opts:YN},
+{id:'toux',sec:'sante',ages:T3,t:'Toussez-vous souvent (tous les jours) ?',type:'single',opts:YN},
+{id:'touxGrasse',sec:'sante',ages:T3,when:()=>has('toux','oui'),t:'Cette toux ramène-t-elle des crachats (toux grasse) ?',type:'single',opts:YN},
+{id:'essouffle',sec:'sante',ages:T3,t:'Êtes-vous plus facilement essoufflé(e) que les personnes de votre âge ?',type:'single',opts:YN},
+{id:'apnees',sec:'sante',ages:T3,t:'Faites-vous des pauses respiratoires ou des ronflements importants pendant le sommeil (constatés par votre entourage) ?',type:'single',opts:YNN},
+{id:'menopause',sec:'sante',ages:['45'],when:isF,t:'Souhaitez-vous aborder les symptômes de la ménopause (bouffées de chaleur, sommeil, sécheresse vaginale, troubles urinaires, fatigue, anxiété, irritabilité) ?',type:'single',opts:[['oui','Oui'],['non','Non'],['deja','Je suis déjà ménopausée']]},
+{id:'menopauseAge',sec:'sante',ages:['60'],when:isF,t:'Si vous êtes une femme, à quel âge avez-vous été ménopausée ?',type:'num',unit:'ans'},
+{id:'dentiste',sec:'sante',ages:T4,t:'Êtes-vous allé(e) chez le dentiste dans les 12 derniers mois ?',type:'single',opts:YN},
+{id:'vue',sec:'sante',ages:T4,t:'Avez-vous l’impression de voir moins bien (difficultés pour lire, pour voir de loin…) ?',type:'single',opts:YN},
+{id:'audition',sec:'sante',ages:T3,t:'Avez-vous l’impression d’entendre moins bien, ou votre entourage trouve-t-il que votre audition a baissé ?',type:'single',opts:YN},
+{id:'msk',sec:'sante',ages:T2,t:'Avez-vous eu, durant les 12 derniers mois, des douleurs ou de l’inconfort (cou, dos, épaules, mains) qui gênent votre vie quotidienne ?',type:'single',opts:YN},
+{id:'urinaire',sec:'sante',ages:['60'],t:'Êtes-vous sujet à des troubles urinaires ?',type:'single',opts:YN},
+{id:'travail',sec:'sante',ages:['60'],t:'Si vous êtes toujours en activité, jugez-vous vos conditions de travail difficiles / pénibles ?',type:'single',opts:[['oui','Oui'],['non','Non'],['nc','Non concerné(e)']]},
+{id:'oublis',sec:'sante',ages:['60','70'],t:'Avez-vous la sensation d’oublier des choses ?',type:'single',opts:YN},
+{id:'diffQuot',sec:'sante',ages:['60'],t:'Avez-vous l’impression d’avoir plus de difficultés à réaliser vos activités quotidiennes ?',type:'single',opts:YNN},
+{id:'gestes',sec:'sante',ages:['70'],t:'Avez-vous des difficultés à réaliser seul(e) les gestes de la vie quotidienne ?',type:'multi',opts:[['lit','Quitter son lit / se coucher'],['toilettes','Aller aux toilettes'],['toilette','Faire sa toilette'],['habiller','S’habiller / se déshabiller'],['manger','Manger et boire'],['marcher','Marcher (avec ou sans canne, béquille…)'],['transport','Utiliser un moyen de transport'],['aucune','Aucune difficulté']]},
+{id:'logAcces',sec:'sante',ages:['70'],t:'Votre logement est-il facile d’accès en cas de mobilité réduite (plain-pied, ascenseur, rampe…) ?',type:'single',opts:YN},
+{id:'logChutes',sec:'sante',ages:['70'],t:'Votre logement est-il adapté à la prévention des chutes (douche plutôt que baignoire, barre d’appui, revêtement antidérapant, WC surélevé…) ?',type:'single',opts:YN},
+{id:'nourriture',sec:'sante',ages:['18'],t:'Diriez-vous que la nourriture occupe une place très importante dans votre vie ?',type:'single',opts:YN},
+{id:'scoff1',sec:'sante',ages:['18'],when:()=>has('nourriture','oui'),t:'Vous êtes-vous déjà fait vomir parce que vous ne vous sentiez pas bien « l’estomac plein » ?',type:'single',opts:YN},
+{id:'scoff2',sec:'sante',ages:['18'],when:()=>has('nourriture','oui'),t:'Craignez-vous d’avoir perdu le contrôle des quantités que vous mangez ?',type:'single',opts:YN},
+{id:'scoff3',sec:'sante',ages:['18'],when:()=>has('nourriture','oui'),t:'Avez-vous récemment perdu plus de 6 kg en moins de 3 mois ?',type:'single',opts:YN},
+{id:'scoff4',sec:'sante',ages:['18'],when:()=>has('nourriture','oui'),t:'Pensez-vous être trop gros(se) alors que les autres vous trouvent trop mince ?',type:'single',opts:YN},
+{id:'regles',sec:'sante',ages:['18'],when:isF,t:'Avez-vous des douleurs intenses au bas-ventre au moment des règles ?',type:'single',opts:[['oui','Oui'],['non','Non'],['nc','Non concernée']]},
+/* --- Activité / alimentation --- */
+{id:'act30',sec:'alim',ages:T4,t:'Combien de fois par semaine faites-vous au moins 30 minutes d’activité physique dynamique (marche, vélo, jardinage, ménage, jogging, activité liée à votre métier, sport…) ?',type:'single',opts:[['0','Jamais'],['1-2','1 à 2 fois par semaine'],['3-4','3 à 4 fois par semaine'],['5-7','5 à 7 fois par semaine']]},
+{id:'fruits',sec:'alim',ages:T1,t:'Concernant les fruits et légumes, vous en mangez…',type:'single',opts:FRUITS},
+{id:'fruits70',sec:'alim',ages:['70'],t:'Mangez-vous des fruits et légumes ?',type:'single',opts:SCR5},
+{id:'gras',sec:'alim',ages:T1,t:'À quelle fréquence consommez-vous des aliments gras / sucrés / salés (charcuterie, soda, bonbons, pâtisseries, chips, fast-food, glaces) ?',type:'single',opts:GRAS},
+{id:'gras70',sec:'alim',ages:['70'],t:'Avez-vous tendance à consommer des aliments trop gras / sucrés / salés (charcuterie, soda, plats préparés, sel ajouté à table) ?',type:'single',opts:YN},
+{id:'assis',sec:'alim',ages:T1,t:'Combien de temps par jour passez-vous assis(e) ou allongé(e), hors sommeil ?',type:'single',opts:ASSIS},
+{id:'ecran',sec:'alim',ages:T1,t:()=>S.tr==='18'?'Combien de temps par jour passez-vous devant un écran, en dehors des études ou du travail ?':'Combien de temps par jour passez-vous devant un écran, en dehors du travail ?',type:'single',opts:ECRAN},
+/* --- Vaccins, dépistages, santé sexuelle --- */
+{id:'vaccins',sec:'vacc',ages:T4,t:()=>S.tr==='70'?'Êtes-vous à jour des vaccins obligatoires (diphtérie, tétanos, polio) ?':'Êtes-vous à jour de vos vaccins et rappels ?',type:'single',opts:YNN,hint:'Apportez votre carnet de vaccination si possible.'},
+{id:'hpv',sec:'vacc',ages:['18'],t:'Êtes-vous vacciné(e) contre les papillomavirus humains (HPV) ?',type:'single',opts:YNN},
+{id:'frottis18',sec:'vacc',ages:['18'],when:isF,t:'Avez-vous réalisé un frottis de dépistage du cancer du col de l’utérus (recommandé à partir de 25 ans) ?',type:'single',opts:[['oui','Oui'],['non','Non'],['nsp','Je ne sais pas'],['nc','Non concernée (moins de 25 ans)']]},
+{id:'gyneco',sec:'vacc',ages:['18'],when:isF,t:'Êtes-vous allée chez le gynécologue dans les 12 derniers mois ?',type:'single',opts:[['oui','Oui'],['non','Non'],['nc','Non concernée']]},
+{id:'ist',sec:'vacc',ages:T4,t:'Êtes-vous dans l’une des situations suivantes ?',type:'multi',opts:[['plus1','Plus d’un(e) partenaire sexuel(le) au cours des 12 derniers mois'],['arret','Souhait d’arrêter le préservatif avec mon nouveau (ma nouvelle) partenaire'],['diag','Mon (ma) partenaire a eu un diagnostic d’IST (VIH, chlamydia, gonocoque, syphilis…)'],['autre','Rapports sexuels ces 12 derniers mois, mais non concerné(e) par ces situations'],['non','Non concerné(e)']],hint:'Plusieurs réponses possibles'},
+{id:'contraception',sec:'vacc',ages:['18'],when:()=>!((A('ist')||[]).includes('non')&&(A('ist')||[]).length===1),t:'Utilisez-vous un moyen de contraception ?',type:'single',opts:[['oui','Oui'],['non','Non'],['nc','Non concerné(e)']]},
+{id:'depistIST',sec:'vacc',ages:['18'],when:()=>(A('ist')||[]).some(x=>['plus1','arret','diag','autre'].includes(x)),t:'Avez-vous déjà réalisé un dépistage des infections sexuellement transmissibles ?',type:'single',opts:YNN},
+{id:'depist45',sec:'vacc',ages:['45'],t:'Avez-vous réalisé un test de dépistage du cancer colorectal et/ou une mammographie de dépistage (recommandés à partir de 50 ans) ?',type:'single',opts:[['oui','Oui'],['non','Non'],['nsp','Je ne sais pas'],['nc','Non concerné(e) (moins de 50 ans)']]},
+{id:'ccr60',sec:'vacc',ages:['60'],t:'Avez-vous réalisé un test de dépistage du cancer colorectal ?',type:'single',opts:DEP4},
+{id:'mammo60',sec:'vacc',ages:['60'],when:isF,t:'Avez-vous réalisé une mammographie de dépistage du cancer du sein ?',type:'single',opts:DEP4},
+{id:'frottis45',sec:'vacc',ages:['45'],when:isF,t:'Avez-vous réalisé un frottis de dépistage du cancer du col de l’utérus ?',type:'single',opts:FROT},
+{id:'frottis60',sec:'vacc',ages:['60'],when:isF,t:'Avez-vous réalisé un frottis de dépistage du cancer du col de l’utérus ?',type:'single',opts:FROT},
+{id:'depist70',sec:'vacc',ages:['70'],t:'Avez-vous réalisé votre mammographie de dépistage du cancer du sein et/ou votre test de dépistage du cancer colorectal ?',type:'single',opts:YNN},
+/* --- Addictions --- */
+{id:'alcool',sec:'addic',ages:T1,t:'Au cours de l’année écoulée, concernant votre consommation de boissons alcoolisées :',type:'multi',opts:[['plus2','Je bois plus de 2 verres standards par jour'],['plus10','Je bois plus de 10 verres standards par semaine'],['pas2j','Je n’ai pas au moins 2 jours sans alcool par semaine'],['occas','Je bois de l’alcool sans dépasser ces repères'],['aucun','Je ne bois pas d’alcool']],hint:'Plusieurs réponses possibles'},
+{id:'alcool70',sec:'addic',ages:['70'],t:'Nombre de verres d’alcool consommés sur une semaine habituelle',type:'num',unit:'verres'},
+{id:'audit1',sec:'addic',ages:T4,when:()=>alcoolRisk(),t:'À quelle fréquence buvez-vous de l’alcool ?',type:'single',opts:[['0','Jamais'],['1','1 fois par mois ou moins'],['2','2 à 4 fois par mois'],['3','2 à 3 fois par semaine'],['4','4 fois par semaine ou plus']],hint:'Un verre standard (10 g d’alcool) : 25 cl de bière, 10 cl de vin, 3 cl d’alcool fort.'},
+{id:'audit2',sec:'addic',ages:T4,when:()=>alcoolRisk()&&A('audit1')!=='0',t:'Combien de verres standard buvez-vous lors d’une journée où vous buvez de l’alcool ?',type:'single',opts:[['0','1 ou 2'],['1','3 ou 4'],['2','5 ou 6'],['3','7 à 9'],['4','10 ou plus']]},
+{id:'audit3',sec:'addic',ages:T4,when:()=>alcoolRisk()&&A('audit1')!=='0',t:'À quelle fréquence buvez-vous 6 verres standard ou plus en une même occasion ?',type:'single',opts:[['0','Jamais'],['1','Moins d’une fois par mois'],['2','1 fois par mois'],['3','1 fois par semaine'],['4','Tous les jours ou presque']]},
+{id:'tabac',sec:'addic',ages:T4,t:'Actuellement, fumez-vous (cigarette, tabac à rouler, cigare, pipe, chicha, narguilé…) ou vapotez-vous ?',type:'single',opts:[['fume','Je fume'],['vape','Je vapote'],['both','Je fume et je vapote'],['non','Non, jamais'],['arret','J’ai arrêté']]},
+{id:'tabacArret',sec:'addic',ages:['45','60','70'],when:()=>has('tabac','arret'),t:'Si vous avez arrêté de fumer, depuis combien de temps ?',type:'single',opts:[['<1','Moins d’un an'],['1-5','Entre 1 et 5 ans'],['>5','Plus de 5 ans']]},
+{id:'cigJour',sec:'addic',ages:T4,when:()=>has('tabac','fume')||has('tabac','both'),t:'Combien de cigarettes (ou équivalent) fumez-vous par jour ?',type:'num',unit:'par jour'},
+{id:'delai',sec:'addic',ages:T4,when:()=>has('tabac','fume')||has('tabac','both'),t:'Dans quel délai après le réveil fumez-vous votre première cigarette ?',type:'single',opts:[['m5','Dans les 5 minutes'],['m30','Entre 6 et 30 minutes'],['m60','Entre 31 et 60 minutes'],['p60','Après 60 minutes']]},
+{id:'tentatives',sec:'addic',ages:T4,when:()=>has('tabac','fume')||has('tabac','both'),t:'Avez-vous déjà essayé d’arrêter de fumer ?',type:'single',opts:[['non','Jamais'],['1','Une fois'],['plus','Plusieurs fois']]},
+{id:'stade',sec:'addic',ages:T4,when:()=>has('tabac','fume')||has('tabac','both'),t:'Souhaitez-vous arrêter de fumer ?',type:'single',opts:[['mois','Oui, dans le mois qui vient'],['6mois','Oui, dans les 6 prochains mois'],['non','Pas pour le moment']]},
+{id:'subst',sec:'addic',ages:T1,t:'Avez-vous consommé d’autres substances au cours des 12 derniers mois ?',type:'multi',opts:()=>S.tr==='18'?[['cannabis','Oui, du cannabis'],['drogues','Oui, d’autres drogues (ecstasy, cocaïne, héroïne…)'],['proto','Oui, du protoxyde d’azote'],['non','Non']]:[['cannabis','Oui, du cannabis'],['drogues','Oui, d’autres drogues (ecstasy, cocaïne, héroïne…)'],['non','Non']]},
+{id:'subst70',sec:'addic',ages:['70'],t:'Avez-vous consommé d’autres substances (cannabis, autres drogues) au cours des 12 derniers mois ?',type:'single',opts:YN},
+{id:'cast1',sec:'addic',ages:T4,when:()=>usesCannabis(),t:'Avez-vous déjà fumé du cannabis avant midi ?',type:'single',opts:[['0','Jamais'],['1','Rarement'],['2','De temps en temps'],['3','Assez souvent'],['4','Très souvent']],hint:'Au cours des 12 derniers mois'},
+{id:'cast2',sec:'addic',ages:T4,when:()=>usesCannabis(),t:'Avez-vous déjà fumé du cannabis lorsque vous étiez seul(e) ?',type:'single',opts:[['0','Jamais'],['1','Rarement'],['2','De temps en temps'],['3','Assez souvent'],['4','Très souvent']]},
+{id:'cast3',sec:'addic',ages:T4,when:()=>usesCannabis(),t:'Avez-vous déjà eu des problèmes de mémoire quand vous fumiez du cannabis ?',type:'single',opts:[['0','Jamais'],['1','Rarement'],['2','De temps en temps'],['3','Assez souvent'],['4','Très souvent']]},
+{id:'cast4',sec:'addic',ages:T4,when:()=>usesCannabis(),t:'Des amis ou des membres de votre famille vous ont-ils déjà dit que vous devriez réduire votre consommation de cannabis ?',type:'single',opts:[['0','Non, jamais'],['2','Oui, mais pas au cours des 12 derniers mois'],['4','Oui, au cours des 12 derniers mois']]},
+{id:'cast5',sec:'addic',ages:T4,when:()=>usesCannabis(),t:'Avez-vous déjà essayé de réduire ou d’arrêter votre consommation de cannabis sans y arriver ?',type:'single',opts:[['0','Non, jamais'],['2','Oui, mais pas au cours des 12 derniers mois'],['4','Oui, au cours des 12 derniers mois']]},
+{id:'cast6',sec:'addic',ages:T4,when:()=>usesCannabis(),t:'Avez-vous déjà eu des problèmes à cause de votre consommation de cannabis (dispute, bagarre, accident, mauvais résultats…) ?',type:'single',opts:[['0','Non, jamais'],['2','Oui, mais pas au cours des 12 derniers mois'],['4','Oui, au cours des 12 derniers mois']]},
+{id:'jeux',sec:'addic',ages:T1,t:'Au cours des 12 derniers mois, avez-vous misé de l’argent (loterie, poker, paris sportifs ou hippiques…) ?',type:'single',opts:[['souvent','Oui, souvent'],['tps','Oui, de temps en temps'],['rare','Oui, rarement'],['non','Non']]},
+/* --- Santé mentale --- */
+{id:'sommeilPb',sec:'mental',ages:T1,t:'Diriez-vous que vous avez des problèmes de sommeil ?',type:'single',opts:[['souvent','Oui, souvent'],['parfois','Oui, parfois'],['non','Non'],['somnifere','Je prends des somnifères']]},
+{id:'sommeilDuree',sec:'mental',ages:T1,when:()=>A('sommeilPb')&&A('sommeilPb')!=='non',t:'En moyenne, vous dormez…',type:'single',opts:[['<6','Moins de 6 h par nuit'],['6-10','Entre 6 h et 10 h par nuit'],['>10','10 h ou plus par nuit']]},
+{id:'nerv',sec:'mental',ages:T1,t:'Au cours des 2 dernières semaines, combien de fois avez-vous eu un sentiment de nervosité, d’anxiété ou de tension ?',type:'single',opts:F4},
+{id:'inq',sec:'mental',ages:T1,t:'… combien de fois avez-vous été incapable d’arrêter de vous inquiéter ou de contrôler vos inquiétudes ?',type:'single',opts:F4},
+{id:'interet',sec:'mental',ages:T1,t:'… combien de fois avez-vous éprouvé peu d’intérêt ou de plaisir à faire les choses ?',type:'single',opts:F4},
+{id:'triste',sec:'mental',ages:T1,t:'… combien de fois avez-vous éprouvé un sentiment de tristesse, de déprime ou de désespoir ?',type:'single',opts:F4},
+{id:'idees',sec:'mental',ages:T1,t:'Avez-vous déjà eu des idées noires / suicidaires ou fait une tentative de suicide ?',type:'single',opts:[['idees','Oui, des idées noires / suicidaires'],['tentative','Oui, une ou des tentatives de suicide'],['non','Non']]},
+{id:'depTraite',sec:'mental',ages:['70'],t:'Avez-vous déjà été traité(e) pour une dépression ou des troubles anxieux ?',type:'single',opts:YN},
+{id:'plaisir',sec:'mental',ages:['70'],t:'Prenez-vous du plaisir aux mêmes choses qu’autrefois ?',type:'single',opts:YN},
+{id:'apparence',sec:'mental',ages:['70'],t:'Ne vous intéressez-vous plus à votre apparence ?',type:'single',opts:YN},
+{id:'souci',sec:'mental',ages:['70'],t:'Vous faites-vous du souci ?',type:'single',opts:YN},
+{id:'sommeil70',sec:'mental',ages:['70'],t:'Dormez-vous… ?',type:'single',opts:[['bien','Bien'],['parfois','Mal de temps en temps'],['souvent','Mal souvent'],['toujours','Mal tout le temps']]},
+{id:'anxiete70',sec:'mental',ages:['70'],t:'Éprouvez-vous de l’anxiété et/ou des sensations soudaines de panique ?',type:'single',opts:YN},
+{id:'violences',sec:'mental',ages:T4,t:'Avez-vous déjà été victime de violences physiques, sexuelles ou psychiques (menaces, chantage, humiliations, coups…), de harcèlement ou de discrimination ?',type:'single',opts:YNN},
+/* --- Priorités --- */
+{id:'sujets',sec:'prio',ages:T4,t:'Souhaitez-vous aborder un ou deux sujets en priorité avec le pharmacien ?',type:'multi',opts:()=>SUJ[S.tr].filter(([k])=>k==='tabac'?(smokerNow()||has('tabac','vape')):k==='alcool'?drinks():true),hint:'Choisissez 1 ou 2 sujets.'},
+{id:'sujetAutre',sec:'prio',ages:T4,t:'Autre sujet que vous souhaitez aborder (facultatif)',type:'text'}
+];
+/* Mode express : questions qui ne déclenchent ni alerte ni orientation, à aborder à l’oral si besoin */
+const EXPRESS_SKIP=['activite','logement','enfants','enfantsSeul','projetEnfant','hospit','bilanBio','dentiste','vue','audition','msk','urinaire','travail','logAcces','fruits','fruits70','gras','gras70','assis','ecran','gyneco','contraception','depistIST','sommeilDuree','menopauseAge','jeux'];
+const qVisible=q=>q.ages.includes(S.tr)&&(!q.when||q.when())&&!(S.express&&EXPRESS_SKIP.includes(q.id));
+const skippedCount=()=>Q.filter(q=>q.ages.includes(S.tr)&&(!q.when||q.when())&&EXPRESS_SKIP.includes(q.id)).length;
+const secQs=sid=>Q.filter(q=>q.sec===sid&&qVisible(q));
+const activeSecs=()=>SECS.filter(s=>secQs(s[0]).length);
+
+/* ============================================================
+   THÈMES DE PRÉVENTION (priorités, actions, ressources)
+   ============================================================ */
+const R_TAB='Tabac info service : 3989 (gratuit) · tabac-info-service.fr';
+const R_ALC='Alcool info service : 0 980 980 930 · alcool-info-service.fr';
+const R_DRO='Drogues info service : 0 800 23 13 13';
+const R_JEU='Joueurs info service : 09 74 75 13 13';
+const R_SUI='Numéro national de prévention du suicide : 3114 (24 h/24, gratuit)';
+const R_VIO='Violences faites aux femmes : 3919 · danger immédiat : 17';
+const R_MB='mangerbouger.fr';
+const PRIO={
+ tabac:{l:'Tabac / vapotage',a:['Fixer une date d’arrêt (ou une réduction progressive)','Choisir une aide au sevrage avec le pharmacien (substituts nicotiniques, avis médical si besoin)','Contacter Tabac info service (3989) ou l’application e-Tabac','Repérer les situations qui donnent envie de fumer et préparer des alternatives','Point de suivi à l’officine dans 2 à 4 semaines'],r:[R_TAB]},
+ alcool:{l:'Alcool',a:['Ne pas dépasser 2 verres par jour et 10 par semaine, avec au moins 2 jours sans alcool','Noter sa consommation pendant 2 semaines','Prévoir des alternatives sans alcool pour les occasions habituelles','Contacter Alcool info service (0 980 980 930)','Point de suivi dans 1 mois'],r:[R_ALC]},
+ sommeil:{l:'Sommeil',a:['Se coucher et se lever à heures régulières','Réserver la chambre au sommeil et éviter les écrans dans l’heure avant le coucher','Limiter la caféine l’après-midi et l’alcool le soir','Tenir un agenda du sommeil pendant 2 semaines','Consulter le médecin traitant si les troubles durent plus de 3 mois ou retentissent sur la journée'],r:['Recommandations « Bien dormir » sur sante.fr']},
+ alim:{l:'Alimentation et activité physique',a:['Viser au moins 5 portions de fruits et légumes par jour','Réduire charcuterie, sodas, plats préparés et produits très gras, sucrés ou salés','Marcher ou pratiquer une activité modérée 30 minutes par jour (commencer par 10 minutes)','Limiter le temps assis : se lever quelques minutes chaque heure','S’inspirer des conseils concrets de mangerbouger.fr'],r:[R_MB]},
+ mental:{l:'Bien-être mental et stress',a:['Repérer les situations de stress et en parler à un proche','Pratiquer une technique de respiration ou de relaxation quelques minutes par jour','Maintenir une activité physique et des activités plaisantes régulières','Consulter le médecin traitant si les symptômes persistent ou s’aggravent','En cas de détresse : appeler le 3114 (24 h/24)'],r:[R_SUI,'Santé Mentale Info']},
+ ecran:{l:'Écrans',a:['Fixer un temps d’écran de loisir maximal par jour','Couper les notifications et laisser le téléphone hors de la chambre la nuit','Remplacer une partie du temps d’écran par une marche ou une sortie'],r:[]},
+ depistage:{l:'Dépistages des cancers',a:['Faire les dépistages recommandés à mon âge (voir orientations)','Récupérer / réaliser le test de dépistage colorectal','Prendre rendez-vous pour la mammographie ou le frottis selon mon cas','Noter les dates des prochains dépistages dans mon carnet de santé'],r:['Ressources de prévention près de chez soi : sante.fr (Mon Bilan Prévention – annuaires complémentaires)']},
+ vaccination:{l:'Vaccinations',a:['Mettre à jour les vaccins recommandés (carnet de vaccination ou Mon espace santé)','Planifier la vaccination à l’officine ou chez le médecin','Conserver le carnet de vaccination à jour'],r:[]},
+ menopause:{l:'Ménopause',a:['Noter les symptômes (bouffées de chaleur, sommeil, humeur) et leur impact','En parler au médecin traitant ou à la sage-femme pour envisager les options','Maintenir une activité physique régulière et un apport suffisant en calcium'],r:[]},
+ vieillissement:{l:'Vieillissement, mémoire, équilibre',a:['Pratiquer des exercices d’équilibre et de renforcement musculaire 2 à 3 fois par semaine','Sécuriser le domicile contre les chutes (éclairage, tapis, barres d’appui)','Entretenir sa mémoire : activités sociales, lecture, jeux','Faire contrôler la vue et l’audition','Faire le point sur les médicaments avec le pharmacien (bilan partagé de médication)'],r:[R_MB]},
+ violences:{l:'Violences, harcèlement, discriminations',a:['En parler à un professionnel de confiance (médecin, pharmacien…)','Appeler le 3919 pour être écouté, informé, orienté ; le 17 en cas de danger immédiat','Identifier une personne ressource dans son entourage'],r:[R_VIO]},
+ sexuelle:{l:'Santé sexuelle',a:['Se faire dépister (VIH, IST) en laboratoire','Utiliser un préservatif avec tout nouveau partenaire','Discuter contraception et PrEP avec un professionnel de santé'],r:[]},
+ cardio:{l:'Tension et risque cardiovasculaire',a:['Faire confirmer la tension par des mesures répétées (automesure) ','Consulter le médecin traitant pour le suivi','Réduire le sel et maintenir une activité physique régulière'],r:[]},
+ addic:{l:'Cannabis, autres drogues, jeux',a:['Faire le point sur sa consommation (questionnaire CAST pour le cannabis)','Contacter Drogues info service (0 800 23 13 13) ou Joueurs info service (09 74 75 13 13)','Consulter le médecin traitant ou une consultation d’addictologie'],r:[R_DRO,R_JEU]}
+};
+const SUJ2PRIO=c=>c==='memoire'?'vieillissement':c;
+
+/* ============================================================
+   SCORES
+   ============================================================ */
+function phq4(){
+  const ids=['nerv','inq','interet','triste'];
+  const got=ids.filter(i=>A(i)!==undefined);
+  if(!got.length)return null;
+  const v=i=>A(i)!==undefined?+A(i):0;
+  const anx=v('nerv')+v('inq'),dep=v('interet')+v('triste'),total=anx+dep;
+  return {total,anx,dep,complet:got.length===4,
+    niv:total>=9?'sévère':total>=6?'modéré':total>=3?'léger':'normal'};
+}
+function fager(){
+  if(!(has('tabac','fume')||has('tabac','both')))return null;
+  const c=num(A('cigJour')),d=A('delai');
+  if(c==null||!d)return null;
+  const s1=c<=10?0:c<=20?1:c<=30?2:3;
+  const s2={m5:3,m30:2,m60:1,p60:0}[d];
+  const t=s1+s2;
+  return {total:t,niv:t>=4?'dépendance forte':t>=2?'dépendance modérée':'dépendance faible ou nulle'};
+}
+const alcoolRisk=()=>{const al=A('alcool')||[];return al.some(x=>['plus2','plus10','pas2j'].includes(x))||num(A('alcool70'))>10;};
+const drinks=()=>S.tr==='70'?num(A('alcool70'))!==0:!has('alcool','aucun');
+const usesCannabis=()=>(A('subst')||[]).includes('cannabis')||has('subst70','oui');
+const nbM=()=>{const p=num(S.ph.nbMeds);return p!=null?p:num(A('nbMeds'));};
+function auditC(){
+  const ids=['audit1','audit2','audit3'];const got=ids.filter(i=>A(i)!==undefined);
+  if(!got.length)return null;
+  const t=ids.reduce((n,i)=>n+(num(A(i))||0),0);const thr=S.sex==='H'?4:3;
+  return {total:t,thr,pos:t>=thr,dep:t>=10,complet:got.length===3||A('audit1')==='0',niv:t>=10?'évoque une dépendance':t>=thr?'mésusage probable':'sous le seuil'};
+}
+function castScore(){
+  const ids=[1,2,3,4,5,6].map(i=>'cast'+i);const got=ids.filter(i=>A(i)!==undefined);
+  if(!got.length)return null;
+  const t=ids.reduce((n,i)=>n+(num(A(i))||0),0);
+  return {total:t,complet:got.length===6,niv:t>=7?'risque élevé (usage problématique)':t>=3?'risque faible à modéré':'pas de risque'};
+}
+function scoffScore(){
+  if(!has('nourriture','oui'))return null;
+  const ids=['scoff1','scoff2','scoff3','scoff4'];
+  const t=1+ids.filter(i=>has(i,'oui')).length;
+  return {total:t,pos:t>=2,complet:ids.every(i=>A(i)!==undefined)};
+}
+const smokerNow=()=>has('tabac','fume')||has('tabac','both');
+const everSmoked=()=>smokerNow()||has('tabac','arret');
+const ageN=()=>({'18':22,'45':47,'60':62,'70':72})[S.tr]||0; /* âge représentatif de la tranche (l’âge exact n’est pas saisi) */
+
+/* ============================================================
+   ALERTES (cockpit) — règles de repérage
+   l: R rouge (avis médical rapide / sécurité) · O orange (à traiter) · B bleu (à explorer)
+   ============================================================ */
+function buildAlerts(){
+  const L=[];const add=(l,th,p,txt,o)=>L.push(Object.assign({l,th,p,txt},o||{}));
+  const age=ageN(),tr=S.tr,fem=isF();
+  /* Sécurité */
+  if(has('idees','idees')||has('idees','tentative'))
+    add('R','Santé mentale','mental',has('idees','tentative')?'Antécédent de tentative de suicide déclaré.':'Idées noires / suicidaires déclarées.',{act:'Aborder le sujet directement et sans détour ; évaluer le risque actuel (idées, scénario, accès aux moyens). Danger immédiat : 15 ou 3114. Sinon, orientation sans délai vers le médecin traitant.',med:true});
+  if(has('thorax','oui'))
+    add('R','Cardiovasculaire','cardio','Douleur thoracique à l’effort déclarée.',{act:'Avis médical rapide (consultation sous 24-48 h) ; appeler le 15 si douleur en cours ou au repos.',med:true});
+  const sys=num(S.ph.sys),dia=num(S.ph.dia);
+  if(sys!=null&&dia!=null){
+    if(sys>=180||dia>=110)add('R','Cardiovasculaire','cardio','Tension très élevée au comptoir ('+sys+'/'+dia+' mmHg).',{act:'Contrôler après repos ; avis médical le jour même. Appeler le 15 en cas de symptômes (douleur thoracique, déficit neurologique, détresse respiratoire).',med:true});
+    else if(sys>=140||dia>=90)add('O','Cardiovasculaire','cardio','Tension élevée au comptoir ('+sys+'/'+dia+' mmHg).',{act:'À confirmer par des mesures répétées (automesure) ; consultation médicale pour confirmation et suivi.',med:true,svc:'tension'});
+  }
+  if(S.ph.mt==='non')add('O','Parcours de soins','',"Pas de médecin traitant.",{act:'Signaler la situation à la CPAM, avec l’accord du patient.',k:'mt',lab:'Pas de médecin traitant : signalement à la CPAM (avec accord du patient)'});
+  /* Corps */
+  if(has('poidsVar','maigre'))add('O','État de santé','','Amaigrissement déclaré.',{act:tr==='70'?'Rechercher une dénutrition (appétit, bouche, dents, isolement, traitements) ; avis médical.':'Rechercher une cause ; avis médical si non intentionnel.',med:true});
+  if(has('oedemes','oui'))add('O','Cardiovasculaire','cardio','Gonflement des chevilles / jambes.',{act:has('essouffle','oui')?'Associé à un essoufflement : avis médical rapide (cardiaque, rénal, veineux).':'Avis médical (cause cardiaque, rénale, veineuse, médicamenteuse).',med:true});
+  const resp=has('toux','oui')||has('touxGrasse','oui')||has('essouffle','oui');
+  if(resp)add('O','Respiratoire','tabac',(everSmoked()?'Symptômes respiratoires chez un fumeur / ancien fumeur : ':'Symptômes respiratoires : ')+[has('toux','oui')&&'toux quotidienne',has('touxGrasse','oui')&&'toux grasse / crachats',has('essouffle','oui')&&'essoufflement'].filter(Boolean).join(', ')+'.',{act:'Rechercher une BPCO / un asthme : consultation médicale (spirométrie) si pas d’exploration déjà réalisée.',med:true});
+  if(has('apnees','oui'))add('O','Sommeil','sommeil','Pauses respiratoires / ronflements importants.',{act:'Suspicion de syndrome d’apnées du sommeil : consultation médicale (polygraphie) si pas d’exploration déjà réalisée.',med:true});
+  if(has('apnees','nsp'))add('B','Sommeil','sommeil','Ronflements : réponse « ne sait pas ».',{act:'Questionner l’entourage.'});
+  const bmi=imc();
+  if(bmi!=null){
+    if(bmi>=30)add('O','Nutrition','alim','IMC '+bmi.toFixed(1)+' (obésité).',{act:'Évaluer tour de taille, tension, glycémie ; orienter vers le médecin traitant.'});
+    else if(bmi>=25)add('B','Nutrition','alim','IMC '+bmi.toFixed(1)+' (surpoids).');
+    else if(bmi<18.5)add('O','Nutrition','alim','IMC '+bmi.toFixed(1)+' (insuffisance pondérale).',{act:'Explorer alimentation, troubles du comportement alimentaire, maladie sous-jacente ; avis médical.',med:true});
+  }
+  if(has('act30','0')||has('act30','1-2'))add(has('act30','0')?'O':'B','Activité physique','alim',has('act30','0')?'Aucune activité physique de 30 min.':'Activité physique insuffisante (1 à 2 fois par semaine).',{act:'Objectif : 30 min d’activité modérée par jour (adulte). Commencer progressivement.'});
+  if(has('assis','>7')||has('assis','4-7'))add('B','Sédentarité','alim','Temps assis / allongé élevé ('+(has('assis','>7')?'> 7 h':'4 à 7 h')+' par jour).');
+  if(has('ecran','>4'))add('B','Écrans','ecran','Plus de 4 h d’écran par jour hors travail.');
+  if(has('fruits','rare')||has('fruits','jamais')||has('fruits','tps')||has('fruits70','n'))add('B','Alimentation','alim','Consommation de fruits et légumes insuffisante.');
+  if(has('gras','j')||has('gras','sem')||has('gras70','oui'))add('B','Alimentation','alim','Alimentation trop grasse / sucrée / salée.');
+  const SC0=scoffScore();
+  if(SC0){ if(SC0.pos)add('O','Santé mentale','mental','SCOFF = '+SC0.total+'/5 (≥ 2 : trouble du comportement alimentaire probable)'+(SC0.complet?'':' — réponses incomplètes')+'.',{act:'Entretien dédié, évaluation de l’état nutritionnel et du retentissement ; orientation vers le médecin traitant.',med:true});
+    else add('B','Santé mentale','mental','La nourriture occupe une place dominante (SCOFF '+SC0.total+'/5).',{act:'Explorer le rapport à l’alimentation et à l’image corporelle.'}); }
+  if(has('regles','oui'))add('O','Santé sexuelle','sexuelle','Douleurs intenses au bas-ventre pendant les règles.',{act:'Évoquer l’endométriose : orientation vers médecin / gynécologue / sage-femme.',med:true});
+  if(has('menopause','oui'))add('B','Ménopause','menopause','Souhaite aborder les symptômes de la ménopause.');
+  if(has('msk','oui'))add('B','État de santé','','Douleurs cervicales / dorsales / épaules / mains gênantes.');
+  if(has('urinaire','oui'))add('B','État de santé','','Troubles urinaires.',{act:'Orientation vers le médecin traitant.'});
+  if(has('travail','oui'))add('B','Santé et travail','','Conditions de travail difficiles / pénibles.',{act:'Médecin du travail.'});
+  if(has('conditions','oui'))add('B','Environnement social','','Conditions de vie / travail / études difficiles.');
+  if(has('vue','oui'))add('B','Suivi sensoriel','vieillissement','Baisse de la vision ressentie.',{act:'Orientation ophtalmologue / opticien.'});
+  if(has('audition','oui'))add('B','Suivi sensoriel','vieillissement','Baisse de l’audition ressentie.',{act:'Orientation ORL / audioprothésiste.'});
+  if(has('dentiste','non'))add('B','Suivi dentaire','','Pas de visite chez le dentiste depuis 12 mois.');
+  if(has('oublis','oui'))add('O','Cognition','vieillissement','Sensation d’oublis.',{act:'Évaluation cognitive par le médecin traitant (consultation mémoire si besoin).',med:true});
+  if(has('diffQuot','oui'))add('O','Autonomie','vieillissement','Difficultés croissantes dans les activités quotidiennes.',{act:'Évaluation par le médecin traitant.',med:true});
+  const g=A('gestes');
+  if(Array.isArray(g)&&g.length&&!g.includes('aucune'))add('O','Autonomie','vieillissement','Difficultés pour : '+g.length+' geste(s) de la vie quotidienne.',{act:'Perte d’autonomie : évaluation médicale / gériatrique, aides à domicile, ergothérapeute.',med:true});
+  if(has('logChutes','non')||has('logAcces','non'))add('B','Domicile','vieillissement','Logement peu adapté (accessibilité / prévention des chutes).',{act:'Conseils d’aménagement ; orientation vers un ergothérapeute si besoin.'});
+  if(has('maladies','fract'))add('B','Chutes / os','vieillissement','Antécédent de fracture vertébrale / du col du fémur et/ou ostéoporose.',{act:'Prévention des chutes ; revue des traitements ; suivi médical.'});
+  const mal=A('maladies')||[];
+  if(mal.includes('metab')||mal.includes('cv')||mal.includes('diab'))add('B','Cardiovasculaire','cardio','Facteurs de risque / maladie cardiovasculaire déclarés.',{act:'Vérifier le suivi (tension, glycémie, bilan lipidique) et l’observance.'});
+  if(has('bilanBio','p6')||has('bilanBio','j'))if(mal.some(x=>['metab','cv','diab'].includes(x)))add('B','Suivi biologique','','Dernier bilan biologique ancien ou jamais réalisé, avec facteur de risque déclaré.');
+  if(has('famille','oui'))add('B','Antécédents familiaux','','Antécédents familiaux déclarés.',{act:'Préciser lesquels (cancers, infarctus précoce, diabète…) : peut modifier les dépistages.'});
+  /* Social */
+  if(has('enfantsSeul','oui'))add('B','Environnement social','','Famille monoparentale.');
+  if(has('aidant','oui'))add('B','Environnement social','mental','Rôle d’aidant.',{act:'Rechercher un épuisement ; ressources et relais pour les aidants.'});
+  if(has('entourage','non'))add('O','Environnement social','mental','Ne peut pas compter sur quelqu’un en cas de besoin (isolement).',{act:'Identifier des ressources (associations, services sociaux, CCAS).'});
+  if(has('contacts','non'))add('O','Environnement social','mental','Aucun contact avec des proches depuis 6 mois.',{act:'Isolement : orientation vers des dispositifs locaux, médecin traitant.'});
+  if(has('retraiteRegard','tn')||has('retraiteRegard','pn'))add('B','Retraite','mental','Regard négatif sur la retraite.');
+  /* Santé mentale */
+  const P=phq4();
+  if(P){
+    if(P.total>=6)add('O','Santé mentale','mental','PHQ-4 = '+P.total+' ('+P.niv+')'+(P.complet?'':' — réponses incomplètes')+' : anxiété '+P.anx+'/6, dépression '+P.dep+'/6.',{act:'Entretien d’évaluation ; orientation vers le médecin traitant (évaluation, psychothérapie, traitement si besoin).',med:true});
+    else if(P.total>=3)add('B','Santé mentale','mental','PHQ-4 = '+P.total+' ('+P.niv+') : anxiété '+P.anx+'/6, dépression '+P.dep+'/6.',{act:'À explorer ; proposer un nouveau point dans quelques semaines.'});
+  }
+  if(tr==='70'){
+    const s=['depTraite','apparence','souci','anxiete70'].filter(i=>has(i,'oui')).length+(has('plaisir','non')?1:0);
+    if(s>=2)add('O','Santé mentale','mental',s+' indices dépressifs / anxieux (plaisir, apparence, soucis, anxiété, antécédent de traitement).',{act:'Explorer l’humeur (échelle brève type mini-GDS) ; orientation vers le médecin traitant.',med:true});
+    else if(s===1)add('B','Santé mentale','mental','1 indice dépressif / anxieux à explorer.');
+    if(has('sommeil70','souvent')||has('sommeil70','toujours'))add('O','Sommeil','sommeil','Sommeil mauvais souvent ou tout le temps.');
+  }
+  if(has('sommeilPb','souvent'))add('O','Sommeil','sommeil','Problèmes de sommeil fréquents.',{act:'Rechercher caféine, écrans, alcool, anxiété, apnées ; revue des traitements.'});
+  else if(has('sommeilPb','parfois'))add('B','Sommeil','sommeil','Problèmes de sommeil occasionnels.');
+  if(has('sommeilPb','somnifere'))add('O','Sommeil','sommeil','Prise de somnifères.',{act:'Revue du traitement (durée, benzodiazépines / apparentés, risque de chute et de confusion si âge ≥ 65) ; orientation vers le médecin prescripteur pour discuter d’une réduction.',svc:'bpm'});
+  if(has('sommeilDuree','<6'))add('B','Sommeil','sommeil','Durée de sommeil < 6 h par nuit.');
+  if(has('sommeilDuree','>10'))add('B','Sommeil','sommeil','Durée de sommeil ≥ 10 h par nuit.');
+  if(has('violences','oui'))add('O','Violences','violences','Violences / harcèlement / discrimination déclarés (en cours ou passés).',{act:'Aborder en privé, sans jugement ; préciser si la situation est actuelle ; 3919 / 17 si danger ; orientation médecin / association.'});
+  if(has('violences','nsp'))add('B','Violences','violences','Réponse « ne sait pas » sur les violences.');
+  /* Addictions */
+  const al=A('alcool')||[];
+  const AC0=auditC();
+  if(al.includes('plus2')||al.includes('plus10')||al.includes('pas2j')||num(A('alcool70'))>10||(AC0&&AC0.pos)){
+    const decl=[al.includes('plus2')&&'> 2 verres/jour',al.includes('plus10')&&'> 10 verres/semaine',al.includes('pas2j')&&'pas 2 jours sans alcool par semaine',num(A('alcool70'))>10&&num(A('alcool70'))+' verres/semaine'].filter(Boolean).join(' ; ');
+    add(AC0&&AC0.dep?'R':(AC0&&AC0.complet&&!AC0.pos)?'B':'O','Alcool','alcool','Consommation à risque'+(decl?' ('+decl+')':'')+(AC0?' — AUDIT-C '+AC0.total+'/12 (seuil '+AC0.thr+' : '+AC0.niv+')':'')+'.',{act:AC0&&AC0.dep?'Score évoquant une dépendance : orientation vers le médecin traitant / addictologie ; ne pas arrêter brutalement sans avis médical.':'Intervention brève ; repères : max 2 verres/jour, 10/semaine, 2 jours sans alcool.',med:!!(AC0&&AC0.dep)});
+  }
+  if(AC0&&num(A('audit3'))>=2)add('O','Alcool','alcool','Alcoolisations ponctuelles importantes (6 verres ou plus, au moins 1 fois par mois).',{act:'Réduction des risques ; intervention brève.'});
+
+
+  if(smokerNow()){
+    const F=fager();
+    add('O','Tabac','tabac','Fume'+(has('tabac','both')?' et vapote':'')+(F?' — Fagerström simplifié '+F.total+'/6 ('+F.niv+')':'')+(has('stade','mois')?' ; veut arrêter dans le mois':has('stade','6mois')?' ; veut arrêter d’ici 6 mois':has('stade','non')?' ; pas de projet d’arrêt':'')+'.',{act:'Conseil minimal d’arrêt, adaptation d’un traitement de substitution nicotinique si projet d’arrêt, orientation Tabac info service (3989).',svc:'sevrage'});
+  }
+  else if(has('tabac','vape'))add('B','Tabac','tabac','Vapotage seul.',{act:'Explorer le statut tabagique antérieur et le projet de sevrage du vapotage.'});
+  const su=A('subst')||[];
+  const CS0=castScore();
+  if(su.includes('cannabis')||has('subst70','oui')){
+    if(CS0&&CS0.total>=7)add('O','Cannabis / drogues','addic','CAST = '+CS0.total+'/24 : '+CS0.niv+(CS0.complet?'':' (incomplet)')+'.',{act:'Intervention brève ; orientation vers le médecin traitant ou une consultation jeunes consommateurs / addictologie. Drogues info service 0 800 23 13 13.',med:true});
+    else if(CS0&&CS0.total>=3)add('O','Cannabis / drogues','addic','CAST = '+CS0.total+'/24 : '+CS0.niv+(CS0.complet?'':' (incomplet)')+'.',{act:'Intervention brève, réduction des risques ; Drogues info service 0 800 23 13 13.'});
+    else add('B','Cannabis / drogues','addic','Consommation de cannabis déclarée'+(CS0?' — CAST '+CS0.total+'/24 ('+CS0.niv+')':' (CAST non renseigné)')+'.',{act:'Drogues info service 0 800 23 13 13.'});
+  }
+  if(su.includes('drogues'))add('O','Cannabis / drogues','addic','Consommation d’autres drogues déclarée (12 derniers mois).',{act:'Évaluer fréquence et produits ; orientation médecin / CSAPA ; réduction des risques.'});
+  if(su.includes('proto'))add('O','Cannabis / drogues','addic','Consommation de protoxyde d’azote.',{act:'Risques neurologiques (carence en vitamine B12) : orienter vers un médecin en cas de fourmillements, faiblesse ou troubles de l’équilibre.',med:true});
+  if(has('jeux','souvent'))add('O','Jeux d’argent','addic','Jeux d’argent fréquents.',{act:'Évaluer le retentissement ; Joueurs info service 09 74 75 13 13.'});
+  else if(has('jeux','tps'))add('B','Jeux d’argent','addic','Jeux d’argent occasionnels.');
+  /* Vaccins & dépistages */
+  if(has('vaccins','non')||has('vaccins','nsp'))add('O','Vaccination','vaccination','Vaccins à jour : '+(has('vaccins','non')?'non':'ne sait pas')+'.',{act:'Consulter le carnet / Mon espace santé ; mise à jour selon le calendrier vaccinal en vigueur.',k:'vaccins',lab:'Vaccinations : mise à jour selon le calendrier vaccinal en vigueur',svc:'vaccin'});
+  if(tr==='18'&&(has('hpv','non')||has('hpv','nsp')))add('B','Vaccination','vaccination','Vaccination HPV non faite / inconnue.',{act:'Vérifier l’éligibilité au rattrapage selon les recommandations en vigueur (en général jusqu’à 19 ans révolus ; jusqu’à 26 ans pour les hommes ayant des relations avec des hommes).',k:'hpv',lab:'Vaccination HPV : vérifier l’éligibilité au rattrapage',svc:'vaccin'});
+  if(tr==='18')add('B','Vaccination','vaccination','Points à vérifier dans le calendrier vaccinal : rappel dTP (25 ans), ROR (2 doses), hépatite B, méningocoques.');
+  if(tr==='45'&&age>=45)add('B','Vaccination','vaccination','Rappel dTP recommandé à 45 ans ; autres vaccins selon situation (grippe, Covid, si risque).');
+  if(tr==='60'||tr==='70')add('B','Vaccination','vaccination','Points à vérifier : rappel dTP (65 ans puis tous les 10 ans), grippe, Covid-19, pneumocoque, zona, VRS selon l’âge et les facteurs de risque.');
+  /* Col utérus */
+  if(fem&&tr==='18'&&(has('frottis18','non')||has('frottis18','nsp')))add('O','Dépistage','depistage','Premier dépistage du cancer du col de l’utérus à 25 ans : non réalisé / inconnu.',{act:'Orientation médecin / sage-femme / gynécologue.',k:'col',lab:'Dépistage du cancer du col de l’utérus (frottis) à planifier'});
+  if(fem&&(tr==='45'||tr==='60')){
+    const v=A(tr==='45'?'frottis45':'frottis60');
+    if(v==='p5'||v==='j'||v==='nsp')add('O','Dépistage','depistage','Dépistage du cancer du col de l’utérus : '+(v==='p5'?'plus de 5 ans':v==='j'?'jamais réalisé':'statut inconnu')+'.',{act:'Dépistage tous les 5 ans (test HPV) entre 30 et 65 ans ; orientation médecin / sage-femme / gynécologue.',k:'col',lab:'Dépistage du cancer du col de l’utérus à planifier'});
+  }
+  /* CCR / sein */
+  const ccrEligible=age>=50&&age<=74;
+  const ccrFait=tr==='60'?A('ccr60')==='m2':null;
+  if(tr==='45'){
+    const d=A('depist45');
+    if(d!=='nc'&&d!==undefined){
+      if(d==='non'||d==='nsp')add('O','Dépistage','depistage','À 50 ans : dépistage colorectal'+(fem?' et mammographie':'')+' : non réalisé / inconnu.',{act:'Remise du kit de dépistage colorectal possible à l’officine'+(fem?' ; mammographie : prise de rendez-vous.':'.'),k:'ccr',lab:'Dépistage colorectal'+(fem?' + mammographie':'')+' (dès 50 ans)',svc:'doccr'});
+    } else add('B','Dépistage','depistage','Dépistages organisés colorectal'+(fem?' et du sein':'')+' : début à 50 ans (avant : seulement si risque élevé, sur avis médical).',{act:'Rechercher un risque élevé (antécédents familiaux, polypes, MICI) → avis médical.'});
+  }
+  if(tr==='60'){
+    const c=A('ccr60'),m=A('mammo60');
+    if(c!=='m2')add(age<=74?'O':'B','Dépistage','depistage','Dépistage colorectal : '+({p2:'plus de 2 ans',j:'jamais réalisé',nsp:'statut inconnu'}[c]||'non renseigné')+'.',{act:'Test tous les 2 ans entre 50 et 74 ans ; kit remis à l’officine possible.',k:'ccr',lab:'Dépistage colorectal (test tous les 2 ans, 50-74 ans)',svc:'doccr'});
+    if(fem&&m!=='m2')add('O','Dépistage','depistage','Mammographie : '+({p2:'plus de 2 ans',j:'jamais réalisée',nsp:'statut inconnu'}[m]||'non renseignée')+'.',{act:'Mammographie tous les 2 ans entre 50 et 74 ans : prise de rendez-vous.',k:'sein',lab:'Mammographie de dépistage (tous les 2 ans, 50-74 ans)'});
+  }
+  if(tr==='70'){
+    const d=A('depist70');
+    if(d!=='oui')add(age<=74?'O':'B','Dépistage','depistage','Dépistage colorectal / mammographie : '+({non:'non réalisé',nsp:'statut inconnu'}[d]||'non renseigné')+'.',{act:age<=74?'Dépistages organisés jusqu’à 74 ans ; kit colorectal remis à l’officine possible ; mammographie pour les femmes.':'Au-delà de 74 ans : discuter de la poursuite avec le médecin traitant.',k:'ccr',lab:'Dépistage colorectal / mammographie : à planifier ou à discuter avec le médecin',svc:'doccr'});
+  }
+  /* IST */
+  const ist=A('ist')||[];
+  if(ist.some(x=>['plus1','arret','diag'].includes(x)))add('O','Santé sexuelle','sexuelle','Exposition aux IST : '+[ist.includes('plus1')&&'plusieurs partenaires',ist.includes('arret')&&'projet d’arrêt du préservatif',ist.includes('diag')&&'partenaire avec IST'].filter(Boolean).join(', ')+'.',{act:'Dépistage VIH / IST en laboratoire ; discussion préservatif ; évaluer l’indication d’une PrEP (orientation médecin).',k:'ist',lab:'Dépistage VIH / IST à effectuer',svc:'trod'});
+  else if(tr==='18'&&(has('depistIST','non')||has('depistIST','nsp'))&&ist.includes('autre'))add('B','Santé sexuelle','sexuelle','Rapports sexuels sans dépistage IST connu.',{act:'Proposer un dépistage VIH / IST.',k:'ist',lab:'Dépistage VIH / IST à proposer'});
+  if(tr==='18'&&has('contraception','non')&&fem&&!(ist.includes('non')))add('B','Santé sexuelle','sexuelle','Pas de contraception déclarée.',{act:has('projetEnfant','oui')?'Projet de grossesse : conseils préconceptionnels (acide folique, vaccinations).':'Vérifier le besoin ; contraception d’urgence, orientation.'});
+  /* Traitements */
+  const nm=nbM();
+  if(nm!=null&&nm>=5)add(age>=65?'O':'B','Médicaments','vieillissement','Polymédication : '+nm+' médicaments.',{act:age>=65?'Bilan partagé de médication à proposer (vérifier les critères d’éligibilité en vigueur) ; revue des interactions.':'Revue des traitements et des interactions.',svc:'bpm'});
+  if(S.ph.interact)add('O','Médicaments','','Médicament ou association contre-indiquée repérés.',{act:'Prévenir le prescripteur.',med:true});
+  if(has('traitement','oui')&&!(nm!=null))add('B','Médicaments','','Traitement en cours : renseigner le nombre de médicaments (cockpit) pour évaluer la polymédication.');
+  const ord={R:0,O:1,B:2};
+  L.sort((a,b)=>ord[a.l]-ord[b.l]);
+  return L;
+}
+
+/* ============================================================
+   RENDU
+   ============================================================ */
+function toast(m){const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2200);}
+function rr(){const y=window.scrollY;render();window.scrollTo(0,y);}
+function go(v){S.view=v;render();window.scrollTo(0,0);}
+
+function stepsBar(){
+  const m={home:0,quest:1,handoff:1,lock:2,cockpit:2,docs:3};
+  const n=['Accueil','Questionnaire','Cockpit','Documents'];
+  $('#steps').innerHTML=n.map((x,i)=>`<span class="${m[S.view]===i?'on':''}">${i+1}. ${x}</span>`).join('');
+}
+
+function render(){
+  stepsBar();
+  const v=S.view;
+  $('#view').innerHTML=v==='home'?vHome():v==='quest'?vQuest():v==='handoff'?vHandoff():v==='lock'?vLock():v==='cockpit'?vCockpit():vDocs();
+}
+
+/* ---------- Accueil ---------- */
+function selOpts(a,b,cur,u){let h='<option value="">—</option>';for(let i=a;i<=b;i++)h+=`<option value="${i}" ${String(cur)===String(i)?'selected':''}>${i}${u}</option>`;return h;}
+function trOpts(){return '<option value="">— Choisir —</option>'+Object.keys(TR).map(k=>`<option value="${k}" ${S.tr===k?'selected':''}>${TR[k]}</option>`).join('');}
+function homeOk(){return !!(S.consent&&S.tr&&S.sex&&S.name.trim());}
+function vHome(){
+  const ok=homeOk();
+  return `<div class="card"><h1>Mon Bilan Prévention</h1>
+  <p class="mut">Bilan de prévention aux âges clés de la vie, réalisé à l’officine. Quelques minutes ; vous pouvez passer les questions que vous ne souhaitez pas renseigner.</p></div>
+  <div class="card"><h2>Identification</h2>
+   <div class="row"><div><label class="f">Nom</label><input type="text" data-bind="name" value="${esc(S.name)}" autocomplete="off"></div>
+   <div><label class="f">Prénom</label><input type="text" data-bind="first" value="${esc(S.first)}" autocomplete="off"></div>
+   <div><label class="f">Tranche d’âge</label><select data-bind="tr">${trOpts()}</select></div></div>
+   <div class="row"><div><label class="f">Taille</label><select data-bind="ans.taille">${selOpts(100,220,S.ans.taille,' cm')}</select></div>
+   <div><label class="f">Poids</label><select data-bind="ans.poids">${selOpts(30,200,S.ans.poids,' kg')}</select></div></div>
+   <h3>Vous êtes</h3>
+   <div class="opts">${[['F','Une femme'],['H','Un homme'],['A','Autre']].map(([k,l])=>`<button class="chip ${S.sex===k?'on':''}" data-a="sex" data-v="${k}">${l}</button>`).join('')}</div>
+  </div>
+  <div class="card"><h2>Confidentialité</h2>
+   <p class="mut">Vos réponses ne sont <b>ni enregistrées ni transmises</b> par cette application et sont effacées à chaque nouveau patient.</p>
+   <label class="chk"><input type="checkbox" data-bind="consent" data-rr ${S.consent?'checked':''}><span>Le patient accepte le bilan et la transmission du plan à son médecin traitant.</span></label>
+   <label class="chk"><input type="checkbox" data-bind="express" ${S.express?'checked':''}><span><b>Mode express</b> (recommandé) : environ 30 questions</span></label>
+   <label class="chk"><input type="checkbox" data-bind="assisted" ${S.assisted?'checked':''}><span>Rempli <b>avec le pharmacien</b> (sans remise de tablette)</span></label>
+  </div>
+  <div class="bar"><div class="in"><span></span><button class="btn" data-a="start" ${ok?'':'disabled'}>Commencer le questionnaire</button></div></div>`;
+}
+
+/* ---------- Questionnaire ---------- */
+function qHTML(q){
+  const t=typeof q.t==='function'?q.t():q.t;
+  const opts=typeof q.opts==='function'?q.opts():q.opts;
+  const v=S.ans[q.id];let body='';
+  if(q.type==='single')body=`<div class="opts">${opts.map(([k,l])=>`<button class="chip ${v===k?'on':''}" data-a="ans" data-q="${q.id}" data-v="${esc(k)}">${esc(l)}</button>`).join('')}</div>`;
+  else if(q.type==='multi')body=`<div class="opts">${opts.map(([k,l])=>`<button class="chip ${Array.isArray(v)&&v.includes(k)?'on':''}" data-a="multi" data-q="${q.id}" data-v="${esc(k)}">${esc(l)}</button>`).join('')}</div>`;
+  else if(q.type==='num')body=`<div class="numrow"><input type="number" inputmode="decimal" data-bind="ans.${q.id}" value="${esc(v==null?'':v)}"><span class="mut">${q.unit||''}</span></div>`;
+  else body=`<textarea data-bind="ans.${q.id}" placeholder="…">${esc(v||'')}</textarea>`;
+  return `<div class="q"><div class="qt">${esc(t)}</div>${q.hint?`<div class="hint">${esc(q.hint)}</div>`:''}${body}</div>`;
+}
+function answered(sid){return secQs(sid).filter(q=>{const v=S.ans[q.id];return v!==undefined&&v!==''&&!(Array.isArray(v)&&!v.length);}).length;}
+function vQuest(){
+  const secs=activeSecs();
+  if(S.sec>=secs.length)S.sec=secs.length-1;
+  const [sid,title]=secs[S.sec];
+  const tot=secs.reduce((n,s)=>n+secQs(s[0]).length,0),done=secs.reduce((n,s)=>n+answered(s[0]),0);
+  const last=S.sec===secs.length-1;
+  return `<div class="prog"><i style="width:${Math.round(done/Math.max(tot,1)*100)}%"></i></div>
+   <div class="mut" style="font-size:14px;margin-bottom:8px">${esc(S.first||S.name)} · ${TR[S.tr]} · ${done}/${tot} réponses · <a href="#" data-a="toggleExpress" style="color:var(--pri)">${S.express?'Afficher toutes les questions':'Passer en mode express'}</a></div>
+   <div class="dots">${secs.map((s,i)=>`<button class="${i===S.sec?'on':answered(s[0])===secQs(s[0]).length?'done':''}" data-a="sec" data-v="${i}">${i+1}. ${esc(s[1])}</button>`).join('')}</div>
+   <div class="card"><h2>${esc(title)}</h2>${secQs(sid).map(qHTML).join('')}</div>
+   <div class="bar"><div class="in"><button class="btn sec" data-a="prev" ${S.sec===0?'disabled':''}>← Précédent</button>
+   <button class="btn" data-a="next">${last?(S.assisted?'Terminer → cockpit':'Terminer le questionnaire'):'Suivant →'}</button></div></div>`;
+}
+
+function vHandoff(){
+  return `<div class="card" style="text-align:center;padding:50px 20px"><h1>Merci ${esc(S.first||'')} !</h1>
+  <p style="font-size:21px">Vos réponses sont enregistrées pour ce bilan.</p>
+  <p class="mut">Merci de rendre la tablette au pharmacien, qui va faire le point avec vous.</p>
+  <button class="btn" data-a="tolock" style="margin-top:20px">Espace pharmacien</button>
+  <p><button class="btn sec sm" data-a="back2q" style="margin-top:10px">← Modifier mes réponses</button></p></div>`;
+}
+function vLock(){
+  return `<div class="card" style="max-width:420px;margin:40px auto;text-align:center"><h2>Espace pharmacien</h2>
+  <p class="mut">Saisissez le code pour continuer.</p>
+  <input type="password" inputmode="numeric" id="pin" style="text-align:center;font-size:26px;letter-spacing:8px" autocomplete="off">
+  <button class="btn" data-a="unlock" style="margin-top:14px;width:100%">Valider</button></div>`;
+}
+
+/* ---------- Cockpit ---------- */
+function vCockpit(){
+  const L=buildAlerts(),P=phq4(),F=fager(),bmi=imc(),AC=auditC(),CS=castScore(),SC=scoffScore();
+  const cnt={R:0,O:0,B:0};L.forEach(a=>cnt[a.l]++);
+  const wish=(A('sujets')||[]).map(SUJ2PRIO);
+  // initialisation des services
+  if(!S.ph.svcInit){L.forEach(a=>{if(a.svc&&a.l!=='B')S.ph.services[a.svc]=true;});S.ph.svcInit=true;}
+  // score des thèmes
+  const sc={};L.forEach(a=>{if(a.p&&PRIO[a.p])sc[a.p]=(sc[a.p]||0)+({R:3,O:2,B:1}[a.l]);});
+  wish.forEach(w=>{sc[w]=(sc[w]||0)+2;});
+  const sug=Object.keys(sc).sort((a,b)=>sc[b]-sc[a]).slice(0,2);
+  const todo=[];const seen={};L.forEach(a=>{if(a.k&&!seen[a.k]){seen[a.k]=1;todo.push([a.k,a.lab]);}});
+  if(L.some(a=>a.med)){todo.push(['consult','Consultation médicale recommandée (suspicion de pathologie non suivie ou non connue)']);}
+  const stat=[['','À faire'],['fait','Fait lors du bilan'],['presc','Prescription / orientation remise'],['ok','Déjà à jour']];
+  const ph=S.ph;
+  return `<div class="card"><h2>${esc(S.name)} ${esc(S.first)} · ${TR[S.tr]}</h2>
+   <div class="kpis">
+    <div class="kpi"><small>Alertes</small><b><span class="badge b-R">${cnt.R}</span><span class="badge b-O">${cnt.O}</span><span class="badge b-B">${cnt.B}</span></b></div>
+    <div class="kpi"><small>IMC</small><b>${bmi?bmi.toFixed(1):'—'}</b>${bmi?`<small>${bmi>=30?'obésité':bmi>=25?'surpoids':bmi<18.5?'insuffisance pondérale':'corpulence normale'}</small>`:''}</div>
+    <div class="kpi"><small>PHQ-4 (anxiété / dépression)</small><b>${P?P.total+'/12':'—'}</b>${P?`<small>${P.niv} · A ${P.anx}/6 · D ${P.dep}/6${P.complet?'':' (incomplet)'}</small>`:''}</div>
+    ${F?`<div class="kpi"><small>Fagerström simplifié</small><b>${F.total}/6</b><small>${F.niv}</small></div>`:''}
+    ${AC?`<div class="kpi"><small>AUDIT-C (seuil ${AC.thr})</small><b>${AC.total}/12</b><small>${AC.niv}${AC.complet?'':' (incomplet)'}</small></div>`:''}
+    ${CS?`<div class="kpi"><small>CAST cannabis</small><b>${CS.total}/24</b><small>${CS.niv}${CS.complet?'':' (incomplet)'}</small></div>`:''}
+    ${SC?`<div class="kpi"><small>SCOFF (alimentation)</small><b>${SC.total}/5</b><small>${SC.pos?'positif (≥ 2)':'négatif'}</small></div>`:''}
+   </div>
+   <p style="margin:10px 0 0"><button class="btn sec sm" data-a="back2q">← Revoir / modifier les réponses</button></p></div>
+
+  ${S.express&&skippedCount()?`<div class="note">Mode express : ${skippedCount()} questions non posées (suivi dentaire / vue / audition, détail alimentaire, logement, contraception, jeux d’argent…). À aborder à l’oral si besoin, ou via « Revoir / modifier les réponses » puis « Afficher toutes les questions ».</div>`:''}
+  <div class="card" style="margin-top:16px"><h2>Données du pharmacien</h2>
+   <div class="row">
+    <div><label class="f">Tension (mmHg)</label><div class="numrow" style="max-width:none"><input type="number" inputmode="numeric" placeholder="Sys" data-bind="ph.sys" value="${esc(ph.sys)}"><span>/</span><input type="number" inputmode="numeric" placeholder="Dia" data-bind="ph.dia" value="${esc(ph.dia)}"></div></div>
+    <div><label class="f">Médecin traitant</label><div class="opts">${[['oui','Oui'],['non','Non']].map(([k,l])=>`<button class="chip sm ${ph.mt===k?'on':''}" data-a="ph" data-k="mt" data-v="${k}">${l}</button>`).join('')}</div></div>
+    <div><label class="f">Nb de médicaments (si différent)</label><input type="number" inputmode="numeric" data-bind="ph.nbMeds" placeholder="${esc(A('nbMeds')||'')}" value="${esc(ph.nbMeds)}"></div>
+   </div>
+   <div class="row" style="margin-top:10px">
+    <div><label class="f">Autre score alcool (FACE, AUDIT)</label><input type="text" data-bind="ph.face" value="${esc(ph.face)}"></div>
+    <div><label class="f">Autre score cannabis</label><input type="text" data-bind="ph.cast" value="${esc(ph.cast)}"></div>
+    <div><label class="f">Pharmacien (nom)</label><input type="text" data-bind="ph.pharmacien" value="${esc(ph.pharmacien)}"></div>
+   </div>
+   <label class="chk"><input type="checkbox" data-bind="ph.interact" data-rr ${ph.interact?'checked':''}><span>Médicament ou association contre-indiquée repérée</span></label>
+   <label class="chk"><input type="checkbox" data-bind="ph.mdph" ${ph.mdph?'checked':''}><span>Situation de handicap (inscrit MDPH)</span></label>
+   <button class="btn sec sm" data-a="recalc" style="margin-top:6px">Mettre à jour les alertes</button>
+  </div>
+
+  <div class="card"><h2>Repérage des risques</h2>
+   ${L.length?L.map(a=>`<div class="alert ${a.l}"><div class="th"><span class="badge b-${a.l}">${{R:'Priorité haute',O:'À traiter',B:'À explorer'}[a.l]}</span>${esc(a.th)}</div>${esc(a.txt)}${a.act?`<div class="act">→ ${esc(a.act)}</div>`:''}</div>`).join(''):'<p class="mut">Aucune alerte repérée pour le moment.</p>'}
+   <div class="note" style="margin-top:8px">Ces alertes sont une aide au repérage, pas un diagnostic. En cas de suspicion de pathologie non connue ou non suivie, le bilan doit être suivi d’une consultation médicale.</div></div>
+
+  <div class="card"><h2>Priorités (1 ou 2) — décision partagée</h2>
+   <p class="mut">Étoile = souhait du patient · « suggéré » = d’après les alertes et les souhaits.</p>
+   <div class="grid">${Object.keys(PRIO).map(k=>`<button class="theme ${ph.prios.includes(k)?'on':''}" data-a="prio" data-v="${k}"><b>${esc(PRIO[k].l)}</b>${wish.includes(k)?'<span class="badge b-G">★ souhait</span>':''}${sug.includes(k)?'<span class="badge b-B">suggéré</span>':''}</button>`).join('')}</div>
+   ${ph.prios.map(k=>{
+     const P0=PRIO[k];
+     return `<div class="card" style="margin-top:14px;background:#fafdfc"><h3 style="margin-top:0">${esc(P0.l)}</h3>
+      <label class="f">Objectif du patient (dans ses mots)</label><textarea data-bind="ph.obj.${k}">${esc(ph.obj[k]||'')}</textarea>
+      <div class="row" style="margin-top:10px"><div><label class="f">Importance de changer (0-10)</label><div class="opts">${[...Array(11).keys()].map(n=>`<button class="chip sm num ${ph.imp[k]===n?'on':''}" data-a="scale" data-g="imp" data-k="${k}" data-v="${n}">${n}</button>`).join('')}</div></div>
+      <div><label class="f">Confiance en sa capacité (0-10)</label><div class="opts">${[...Array(11).keys()].map(n=>`<button class="chip sm num ${ph.conf[k]===n?'on':''}" data-a="scale" data-g="conf" data-k="${k}" data-v="${n}">${n}</button>`).join('')}</div></div></div>
+      <label class="f" style="margin-top:12px">Actions concrètes retenues</label>
+      ${P0.a.map((x,i)=>`<label class="chk"><input type="checkbox" data-a="act" data-k="${k}" data-i="${i}" ${(ph.acts[k]||{})[i]?'checked':''}><span>${esc(x)}</span></label>`).join('')}
+      <label class="f">Autre action / précision</label><textarea data-bind="ph.extra.${k}">${esc(ph.extra[k]||'')}</textarea>
+      <label class="f" style="margin-top:8px">Suivi prévu (date, rendez-vous à l’officine…)</label><input type="text" data-bind="ph.suivi.${k}" value="${esc(ph.suivi[k]||'')}">
+     </div>`;}).join('')}
+  </div>
+
+  <div class="card"><h2>Parcours : dépistages, vaccinations, orientations</h2>
+   ${todo.length?todo.map(([k,lab])=>`<div class="row" style="align-items:center;border-bottom:1px solid #edf2f2;padding:8px 0"><div style="flex:2 1 300px">${esc(lab)}</div><div style="flex:1 1 220px"><select data-bind="ph.todo.${k}">${stat.map(([v,l])=>`<option value="${v}" ${(ph.todo[k]||'')===v?'selected':''}>${l}</option>`).join('')}</select></div></div>`).join(''):'<p class="mut">Aucun élément identifié.</p>'}
+  </div>
+
+  <div class="card"><h2>Services de l’officine à proposer</h2>
+   ${CONFIG.services.map(s=>`<label class="chk"><input type="checkbox" data-a="svc" data-k="${s.id}" ${ph.services[s.id]?'checked':''}><span>${esc(s.label)}</span></label>`).join('')}
+   <div class="note w" style="margin-top:10px"><b>Facturation</b> : acte <b>RDP</b>, 30 € (TVA 0 %, prise en charge à 100 %), une seule fois par personne et par tranche d’âge — à vérifier avant de réaliser le bilan. Un seul acte en sus est possible, et uniquement si un besoin a été identifié pendant le bilan : vaccination (RVA) ou remise du kit de dépistage colorectal. Aucun dépassement.</div></div>
+
+  <div class="card"><h2>Commentaires du pharmacien</h2><textarea data-bind="ph.notes">${esc(ph.notes)}</textarea>
+   <label class="chk"><input type="checkbox" data-bind="ph.transmis" ${ph.transmis?'checked':''}><span>Plan personnalisé transmis au médecin traitant (DMP)</span></label></div>
+  <div class="bar"><div class="in"><button class="btn sec" data-a="back2q">← Questionnaire</button><button class="btn" data-a="docs">Générer les documents →</button></div></div>`;
+}
+
+/* ---------- Documents ---------- */
+function sheetHead(titre){
+  return `<div class="lh"><div><h1>${esc(titre)}</h1><div class="sm">Mon Bilan Prévention — ${TR[S.tr]}</div></div><div style="text-align:right"><b>${esc(CONFIG.pharmacie)}</b><div class="sm">${esc(CONFIG.ville)}</div><div class="sm">Date du bilan : ${today()}</div></div></div>`;
+}
+function ident(){
+  return `<table><tr><td><b>Patient</b> : ${esc(S.name.toUpperCase())} ${esc(S.first)}</td><td><b>Tranche d’âge</b> : ${TR[S.tr]}</td><td><b>Genre</b> : ${S.sex==='F'?'Femme':S.sex==='H'?'Homme':'Autre'}</td></tr>
+  <tr><td colspan="3"><b>Professionnel</b> : ${esc(S.ph.pharmacien||'………………………………')}, pharmacien — ${esc(CONFIG.pharmacie)}, ${esc(CONFIG.ville)}</td></tr></table>`;
+}
+function prioList(){return S.ph.prios;}
+function chosenActs(k){
+  const sel=S.ph.acts[k]||{};
+  const arr=PRIO[k].a.filter((_,i)=>sel[i]);
+  (S.ph.extra[k]||'').split('\n').map(s=>s.trim()).filter(Boolean).forEach(s=>arr.push(s));
+  return arr;
+}
+function docPPP(){
+  const P=prioList(),L=buildAlerts();
+  const todo=[];const seen={};L.forEach(a=>{if(a.k&&!seen[a.k]){seen[a.k]=1;todo.push([a.k,a.lab]);}});
+  if(L.some(a=>a.med))todo.push(['consult','Consultation médicale recommandée afin d’établir ou de préciser un diagnostic']);
+  const stt={'':'À faire',fait:'Fait lors du bilan',presc:'Prescription / orientation remise',ok:'Déjà à jour'};
+  const res=[];P.forEach(k=>PRIO[k].r.forEach(r=>{if(!res.includes(r))res.push(r);}));
+  return sheetHead('Plan personnalisé de prévention')+ident()+
+  '<h2>Mes priorités en santé</h2>'+
+  (P.length?P.map((k,i)=>`<div class="box"><b>Priorité ${i+1} : ${esc(PRIO[k].l)}</b>
+    ${S.ph.obj[k]?`<div><i>Mon objectif :</i> ${esc(S.ph.obj[k])}</div>`:''}
+    ${(S.ph.imp[k]!=null||S.ph.conf[k]!=null)?`<div class="sm">Importance du changement : ${S.ph.imp[k]!=null?S.ph.imp[k]+'/10':'—'} · Confiance : ${S.ph.conf[k]!=null?S.ph.conf[k]+'/10':'—'}</div>`:''}
+    <div><i>Actions concrètes :</i></div><ul>${chosenActs(k).map(a=>`<li>${esc(a)}</li>`).join('')||'<li>………………………………………………</li>'}</ul>
+    ${S.ph.suivi[k]?`<div><i>Suivi prévu :</i> ${esc(S.ph.suivi[k])}</div>`:''}</div>`).join(''):'<p><i>Aucune priorité définie.</i></p>')+
+  '<h2>Orientations, dépistages et vaccinations</h2>'+
+  (todo.length?`<table><tr><th>Action</th><th style="width:34%">Statut</th></tr>${todo.map(([k,lab])=>`<tr><td>${esc(lab)}</td><td>${stt[S.ph.todo[k]||'']}</td></tr>`).join('')}</table>`:'<p>Aucune orientation particulière à ce jour.</p>')+
+  (res.length?'<h2>Ressources utiles</h2><ul>'+res.map(r=>`<li>${esc(r)}</li>`).join('')+'</ul>':'')+
+  (S.ph.notes?'<h2>Commentaires du professionnel</h2><div>'+esc(S.ph.notes).replace(/\n/g,'<br>')+'</div>':'')+
+  `<div class="box" style="margin-top:12px">${ck(true)} Remis au patient &nbsp; ${ck(S.ph.transmis)} Transmis au médecin traitant (DMP)<br>
+  <span class="sm">Ce plan est un outil de prévention établi avec le patient ; il ne constitue pas un diagnostic. En cas de symptôme, consulter un médecin.</span></div>
+  <p style="margin-top:14px">Signature du pharmacien : ………………………………………</p>`;
+}
+function docFiche(){
+  const L=buildAlerts(),P=phq4(),F=fager(),bmi=imc(),AC=auditC(),CS=castScore(),SC=scoffScore();
+  const has2=(id,v)=>has(id,v);
+  const al=A('alcool')||[],su=A('subst')||[],ist=A('ist')||[],mal=A('maladies')||[];
+  const T=(id)=>L.some(a=>a.th===id);
+  const aleDe=th=>L.some(a=>a.th===th);
+  const st=k=>({'':'à faire',fait:'fait',presc:'prescription remise',ok:'à jour'})[S.ph.todo[k]||''];
+  const li=(b,t)=>`<div>${ck(b)} ${t}</div>`;
+  const sys=S.ph.sys,dia=S.ph.dia;
+  return sheetHead('Fiche d’aide au repérage des risques')+ident()+
+  `<table><tr><td>Taille : ${heightM()?(heightM()*100).toFixed(0)+' cm':'……'} · Poids : ${esc(A('poids')||'……')} kg${bmi?' · IMC '+bmi.toFixed(1):''}</td><td>Pression artérielle : ${sys&&dia?esc(sys)+'/'+esc(dia)+' mmHg':'……/…… mmHg'}</td></tr>
+  <tr><td>Médecin traitant : ${S.ph.mt==='oui'?'Oui':S.ph.mt==='non'?'Non (signalement CPAM à proposer)':'……'}</td><td>Situation de handicap (MDPH) : ${S.ph.mdph?'Oui':'Non'}</td></tr>
+  <tr><td>Antécédents médicaux : ${mal.length&&!mal.includes('aucune')?'Oui':'Non'}</td><td>Antécédents familiaux : ${has('famille','oui')?'Oui':has('famille','non')?'Non':'—'}</td></tr></table>`+
+  '<div class="g2"><div>'+
+  '<h2>Environnement social et familial</h2>'+
+  li(has('enfantsSeul','oui'),'Famille monoparentale')+li(has('aidant','oui'),'Rôle d’aidant')+li(has('entourage','non')||has('contacts','non'),'Situation d’isolement')+li(L.some(a=>a.th==='Autonomie'),'Perte d’autonomie / dépendance')+
+  '<h2>État de santé actuel</h2>'+
+  li(has('traitement','oui'),'Suit un traitement'+(nbM()?' ('+nbM()+' médicaments)':''))+li(S.ph.interact,'Médicament ou association contre-indiquée')+li((nbM()||0)>=5,'Polymédication')+
+  li(has('toux','oui')||has('touxGrasse','oui')||has('essouffle','oui'),'Toux fréquente / crachats / essoufflement')+li(has('poidsVar','maigre')||has('poidsVar','prise'),'Variation de poids : '+(has('poidsVar','maigre')?'perte':has('poidsVar','prise')?'gain':'non'))+
+  li(has('apnees','oui'),'Pauses respiratoires / ronflements importants')+li(has('menopause','oui'),'Symptômes de ménopause')+
+  `<div>Suivi : ophtalmo ${has('vue','oui')?'à explorer':'—'} · dentaire ${has('dentiste','oui')?'oui':has('dentiste','non')?'non':'—'}</div>`+
+  '<h2>Activité physique et sédentarité</h2>'+
+  li(has('act30','0')||has('act30','1-2'),'Activité physique insuffisante')+li(has('assis','>7')||has('assis','4-7'),'Sédentarité')+li(has('ecran','>4'),'Temps d’écran important')+
+  '<h2>Alimentation</h2>'+li(has('gras','j')||has('gras','sem')||has('gras70','oui'),'Alimentation trop grasse / sucrée / salée')+li(has('fruits','rare')||has('fruits','jamais')||has('fruits','tps')||has('fruits70','n'),'Consommation de fruits et légumes insuffisante')+
+  '<h2>Santé sexuelle</h2>'+li(ist.some(x=>['plus1','arret','diag'].includes(x)),'Exposition aux IST')+li(has('contraception','non')||has('regles','oui'),'Contraception à revoir / douleurs de règles')+
+  '<h2>Violences</h2>'+li(has('violences','oui'),'Violences, harcèlement, discrimination (en cours ou passés)')+
+  '</div><div>'+
+  '<h2>Santé mentale</h2>'+
+  `<div>Score PHQ-4 : ${P?P.total+'/12 ('+P.niv+'; anxiété '+P.anx+', dépression '+P.dep+')':'……'}</div>`+
+  li(has('idees','idees')||has('idees','tentative'),'Idées suicidaires / antécédent de passage à l’acte')+li(has('maladies','psy')||has('depTraite','oui'),'Antécédent de troubles anxio-dépressifs / TCA')+
+  li(has('sommeilPb','souvent')||has('sommeilPb','somnifere')||has('sommeilDuree','<6')||has('sommeil70','souvent')||has('sommeil70','toujours'),'Sommeil insuffisant et/ou de mauvaise qualité')+li(SC&&SC.pos,'Suspicion de trouble du comportement alimentaire'+(SC?' (SCOFF '+SC.total+'/5)':''))+
+  '<h2>Pratiques addictives et usages à risque</h2>'+
+  li(smokerNow()||has('tabac','vape'),'Tabac / vapotage'+(F?' — Fagerström simplifié : '+F.total+'/6':''))+
+  li(alcoolRisk()||(AC&&AC.pos),'Alcool — '+(AC?'AUDIT-C : '+AC.total+'/12'+(S.ph.face?' ; '+esc(S.ph.face):''):'FACE/AUDIT : '+esc(S.ph.face||'……')))+
+  li(usesCannabis(),'Cannabis — CAST : '+(CS?CS.total+'/24':esc(S.ph.cast||'……')))+li(su.includes('drogues')||su.includes('proto'),'Autres drogues'+(su.includes('proto')?' (protoxyde d’azote)':''))+li(has('jeux','souvent')||has('jeux','tps')||has('jeux','rare'),'Jeux d’argent')+
+  '<h2>Parcours de santé, vaccinations, dépistages</h2>'+
+  li(has('vaccins','non')||has('vaccins','nsp'),'Vaccinations / rappels à réaliser ('+st('vaccins')+')')+
+  li(L.some(a=>a.k==='ist'),'Dépistage VIH / IST à effectuer ('+st('ist')+')')+
+  li(L.some(a=>a.k==='ccr'),'Dépistage organisé du cancer colorectal ('+st('ccr')+')')+
+  li(L.some(a=>a.k==='sein'||(a.k==='ccr'&&isF()&&S.tr!=='18')),'Mammographie de dépistage (femmes, 50-74 ans)')+
+  li(L.some(a=>a.k==='col'),'Dépistage du cancer du col de l’utérus ('+st('col')+')')+
+  li(L.some(a=>a.med),'Consultation médicale recommandée')+
+  '<h2>Santé et environnement</h2>'+li(false,'Habitat / exposition professionnelle / bruit (à explorer)')+
+  '</div></div>'+
+  '<h2>Commentaires du professionnel</h2><div class="box" style="min-height:40px">'+esc(S.ph.notes).replace(/\n/g,'<br>')+'</div>'+
+  '<h2>Décision partagée — thématiques priorisées pour l’intervention brève</h2>'+
+  '<div class="box">'+(S.ph.prios.length?S.ph.prios.map((k,i)=>`${i+1}. ${esc(PRIO[k].l)}`).join('<br>'):'1. ………………………<br>2. ………………………')+'</div>';
+}
+function docConseils(){
+  const L=buildAlerts();
+  const P=S.ph.prios;
+  const blocks=[];
+  const add=(t,items)=>blocks.push(`<h2>${t}</h2><ul>${items.map(i=>`<li>${i}</li>`).join('')}</ul>`);
+  if(smokerNow()||P.includes('tabac'))add('Arrêt du tabac',['Substituts nicotiniques : choisir la forme et le dosage selon le score de dépendance, associer patch + forme orale si dépendance forte, puis réévaluer à 2-4 semaines.','Conseiller un suivi à l’officine et l’appel à Tabac info service (3989).']);
+  if(P.includes('sommeil')||L.some(a=>a.p==='sommeil'))add('Sommeil',['Mesures d’hygiène du sommeil en premier ; une aide ponctuelle de l’automédication se discute au cas par cas.','Antihistaminiques sédatifs de première génération : déconseillés chez la personne âgée (risque de confusion et de chute).','Somnifères au long cours : proposer une revue avec le prescripteur.']);
+  if(P.includes('alim')||P.includes('vieillissement'))add('Alimentation et micronutrition',['Une alimentation variée reste la base ; la complémentation (vitamine D, calcium, fer, B12…) n’a de sens qu’en cas de carence documentée ou de situation à risque (âge, régime, médicaments).','Chez la personne âgée : surveiller poids, apport protéique et hydratation.']);
+  add('Peau et photoprotection (SkinMed)',['Photoprotection : indice élevé, renouvellement régulier, éviter les expositions aux heures chaudes.','Auto-examen régulier de la peau ; consulter pour toute lésion qui change de taille, de couleur ou de forme.']);
+  if(has('traitement','oui')||(nbM()||0)>=5)add('Médicaments',['Proposer un bilan partagé de médication si les critères sont remplis ; faire apporter les ordonnances et l’automédication.']);
+  const sv=CONFIG.services.filter(s=>S.ph.services[s.id]).map(s=>esc(s.label));
+  return sheetHead('Conseils de l’officine')+ident()+
+  '<div class="note w" style="margin:8px 0"><b>Document de conseil officinal, distinct du Plan personnalisé de prévention.</b> Il n’est pas destiné au DMP ni à la facturation du bilan.</div>'+
+  blocks.join('')+
+  (sv.length?'<h2>Services proposés à l’officine</h2><ul>'+sv.map(s=>`<li>${s}</li>`).join('')+'</ul>':'')+
+  '<p class="sm">Les conseils ci-dessus ne remplacent pas un avis médical.</p>';
+}
+const DOCS={ppp:['Plan personnalisé de prévention',docPPP],fiche:['Fiche de repérage des risques',docFiche],conseils:['Conseils de l’officine',docConseils]};
+function vDocs(){
+  return `<div class="tabs">${Object.keys(DOCS).map(k=>`<button class="btn ${S.doc===k?'':'sec'} sm" data-a="doc" data-v="${k}">${DOCS[k][0]}</button>`).join('')}</div>
+  <p class="mut" style="font-size:14px">Le document est modifiable directement à l’écran avant impression.</p>
+  <div class="sheet" id="sheet" contenteditable="true">${DOCS[S.doc][1]()}</div>
+  <div class="bar"><div class="in"><button class="btn sec" data-a="back2c">← Cockpit</button>
+  <span style="display:flex;gap:10px"><button class="btn sec" data-a="copy">Copier le texte</button><button class="btn" data-a="print">Imprimer / PDF (A4)</button></span></div></div>`;
+}
+function plainText(){
+  const el=document.createElement('div');el.innerHTML=$('#sheet').innerHTML.replace(/<\/(h1|h2|div|tr|li|p)>/gi,'$&\n').replace(/<\/t[dh]>/gi,' | ');
+  return el.textContent.replace(/\n{3,}/g,'\n\n').trim();
+}
+
+/* ============================================================
+   ÉVÉNEMENTS
+   ============================================================ */
+function setPath(p,val){
+  const ks=p.split('.');let o=S;
+  for(let i=0;i<ks.length-1;i++){if(o[ks[i]]==null)o[ks[i]]={};o=o[ks[i]];}
+  o[ks[ks.length-1]]=val;
+}
+document.addEventListener('input',e=>{
+  const el=e.target;if(!el.dataset||!el.dataset.bind||el.dataset.a)return;
+  if(el.type==='checkbox')return;
+  setPath(el.dataset.bind,el.value);
+  if(S.view==='home'){const b=document.querySelector('[data-a=start]');if(b)b.disabled=!homeOk();}
+});
+document.addEventListener('change',e=>{
+  const el=e.target;if(!el.dataset)return;
+  if(el.dataset.a==='act'){const k=el.dataset.k,i=+el.dataset.i;S.ph.acts[k]=S.ph.acts[k]||{};S.ph.acts[k][i]=el.checked;return;}
+  if(el.dataset.a==='svc'){S.ph.services[el.dataset.k]=el.checked;return;}
+  if(!el.dataset.bind)return;
+  setPath(el.dataset.bind,el.type==='checkbox'?el.checked:el.value);
+  if(el.dataset.rr!==undefined&&(el.tagName==='SELECT'||el.type==='checkbox'))rr();
+});
+document.addEventListener('click',e=>{
+  const el=e.target.closest('[data-a]');if(!el)return;
+  const a=el.dataset.a;
+  if(a==='act'||a==='svc')return;
+  const d=el.dataset;
+  switch(a){
+    case 'reset':if(S.view==='home'||confirm('Effacer toutes les données du patient et recommencer ?')){S=fresh();render();window.scrollTo(0,0);}break;
+    case 'sex':S.sex=d.v;rr();break;
+    case 'start':S.sec=0;S.unlocked=false;go('quest');break;
+    case 'ans':S.ans[d.q]=S.ans[d.q]===d.v?undefined:d.v;rr();break;
+    case 'multi':{
+      const q=Q.find(x=>x.id===d.q);const excl=['aucune','aucun','non','occas'];
+      let cur=Array.isArray(S.ans[d.q])?S.ans[d.q].slice():[];
+      if(cur.includes(d.v))cur=cur.filter(x=>x!==d.v);
+      else if(excl.includes(d.v))cur=[d.v];
+      else{cur=cur.filter(x=>!excl.includes(x));
+        if(d.q==='sujets'&&cur.length>=2){toast('2 sujets maximum');break;}
+        cur.push(d.v);}
+      S.ans[d.q]=cur;rr();break;}
+    case 'sec':S.sec=+d.v;go('quest');break;
+    case 'prev':S.sec=Math.max(0,S.sec-1);go('quest');break;
+    case 'next':{const n=activeSecs().length;if(S.sec<n-1){S.sec++;go('quest');}else{go(S.assisted||S.unlocked?'cockpit':'handoff');}break;}
+    case 'back2q':S.sec=0;go('quest');break;
+    case 'tolock':go(S.unlocked?'cockpit':'lock');break;
+    case 'unlock':{const v=$('#pin').value;if(v===CONFIG.pin){S.unlocked=true;go('cockpit');}else{toast('Code incorrect');$('#pin').value='';}break;}
+    case 'ph':S.ph[d.k]=S.ph[d.k]===d.v?'':d.v;rr();break;
+    case 'scale':S.ph[d.g][d.k]=S.ph[d.g][d.k]===+d.v?undefined:+d.v;rr();break;
+    case 'prio':{const p=S.ph.prios;const i=p.indexOf(d.v);if(i>=0)p.splice(i,1);else if(p.length>=2)toast('2 priorités maximum');else p.push(d.v);rr();break;}
+    case 'docs':S.doc='ppp';go('docs');break;
+    case 'doc':S.doc=d.v;rr();break;
+    case 'toggleExpress':e.preventDefault();S.express=!S.express;S.sec=0;rr();break;
+    case 'back2c':go('cockpit');break;
+    case 'recalc':rr();toast('Alertes mises à jour');break;
+    case 'print':$('#printArea').innerHTML='<div class="sheet">'+$('#sheet').innerHTML+'</div>';window.print();break;
+    case 'copy':{const t=plainText();(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast('Texte copié')).catch(()=>{const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('Texte copié');}catch(_){toast('Copie impossible');}ta.remove();});break;}
+  }
+});
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&S.view==='lock'&&e.target.id==='pin'){e.preventDefault();document.querySelector('[data-a=unlock]').click();}});
+render();
+window.__app={get S(){return S;},buildAlerts,phq4,fager,Q,qVisible,activeSecs,docPPP,docFiche,docConseils,trOf,render};
+</script>
+</body>
+</html>
