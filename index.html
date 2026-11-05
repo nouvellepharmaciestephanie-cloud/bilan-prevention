@@ -84,7 +84,14 @@ details.card summary{cursor:pointer;font-weight:700;font-size:19px}
 .sheet .sm{font-size:11px;color:#444}
 .sheet .box{border:1px solid #888;padding:6px 8px;margin:4px 0}
 #printArea{display:none}
+/* Documents en noir et blanc (écran et impression) */
+.sheet,.sheet *{color:#000!important;background:#fff!important;border-color:#000!important;text-shadow:none!important}
+.sheet h2{border-left:4px solid #000!important;border-bottom:1px solid #000!important}
+.sheet .lh{border-bottom:2px solid #000!important}
+.sheet td,.sheet th{border:1px solid #000!important}
+.sheet .box{border:1px solid #000!important}
 @media print{
+  *{-webkit-print-color-adjust:economy;print-color-adjust:economy}
   body{background:#fff;font-size:12px}
   #app,.toast{display:none!important}
   #printArea{display:block}
@@ -135,11 +142,13 @@ const TR={'18':'18–25 ans','45':'45–50 ans','60':'60–65 ans','70':'70–75
 const trOf=a=>a>=18&&a<=25?'18':a>=45&&a<=50?'45':a>=60&&a<=65?'60':a>=70&&a<=75?'70':null;
 
 let S;
+const proName=()=>{const n=(S.ph.pharmacien||'').trim();return n?(/^dr\.?\s/i.test(n)?n:'Dr '+n):'';};
+const stamp=()=>{const d=S.t0?new Date(S.t0):new Date();return d.toLocaleDateString('fr-FR')+' à '+d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});};
 function fresh(){
   return {view:'home',sec:0,name:'',first:'',age:'',sex:'',tr:null,forced:null,consent:false,assisted:false,express:false,unlocked:false,doc:'ppp',
     ans:{},
-    ph:{sys:'',dia:'',mt:'',nbMeds:'',interact:false,mdph:false,face:'',cast:'',notes:null,pharmacien:'',
-        prios:[],obj:{},imp:{},conf:{},acts:{},extra:{},suivi:{},todo:{},com:{},services:{},svcInit:false,transmis:true}};
+    pharm:CONFIG.pharmacie,t0:null,ph:{sys:'',dia:'',poignet:false,mt:'',nbMeds:'',interact:false,mdph:false,face:'',cast:'',notes:null,pharmacien:'',
+        prios:[],priosInit:false,sact:{},obj:{},imp:{},conf:{},acts:{},extra:{},suivi:{},todo:{},com:{},services:{},svcInit:false,transmis:true}};
 }
 S=fresh();
 
@@ -156,7 +165,8 @@ const imc=()=>{const h=heightM(),w=num(A('poids'));return h&&w?w/(h*h):null;};
    ============================================================ */
 const YN=[['oui','Oui'],['non','Non']];
 const YNN=[['oui','Oui'],['non','Non'],['nsp','Je ne sais pas']];
-const ECH=['Pas du tout','Un peu','Moyennement','Beaucoup','Tout à fait'];
+const ECH=['Pas du tout','Un peu','Moyennement','Beaucoup'];
+const ECHO=ECH.map((l,i)=>[String(i),l]);
 const F4=[['0','Jamais'],['1','Plusieurs jours'],['2','Plus de sept jours'],['3','Presque tous les jours']];
 const SCR5=[['d','Tous les jours'],['p','Pas tous les jours'],['n','Non']]; // 70-75
 const FRUITS=[['5','Au moins 5 portions par jour'],['1-4','Entre 1 et 4 portions par jour'],['tps','De temps en temps'],['rare','Rarement'],['jamais','Jamais']];
@@ -177,7 +187,7 @@ const SUJ={
  '60':[['sommeil','Mieux dormir'],['alim','Améliorer mon alimentation et bouger plus'],['tabac','Réduire ou arrêter le tabac'],['alcool','Réduire ou arrêter l’alcool'],['mental','Améliorer mon bien-être mental, réduire mon stress'],['vieillissement','Mieux connaître / prévenir les effets du vieillissement'],['depistage','Mieux m’informer sur les dépistages']],
  '70':[['sommeil','Mieux dormir'],['alim','M’alimenter plus sainement / bouger plus'],['tabac','Arrêter de fumer'],['alcool','Réduire ma consommation d’alcool'],['vieillissement','Entretenir ma mémoire et améliorer mon équilibre'],['violences','Lutter contre / prévenir les violences, harcèlements, discriminations'],['mental','Améliorer mon bien-être mental, être plus zen']]
 };
-const SECS=[['soc','Vous et votre situation'],['ant','Antécédents et traitements'],['sante','Votre santé actuelle'],['alim','Activité physique et alimentation'],['vacc','Vaccins, dépistages, santé sexuelle'],['addic','Alcool, tabac, autres substances'],['mental','Bien-être mental, sommeil, violences'],['prio','Vos priorités']];
+const SECS=[['prio','Mes priorités en santé'],['soc','Vous et votre situation'],['ant','Antécédents et traitements'],['sante','Votre santé actuelle'],['alim','Activité physique et alimentation'],['vacc','Vaccins, dépistages, santé sexuelle'],['addic','Alcool, tabac, autres substances'],['mental','Bien-être mental, sommeil, violences']];
 const T4=['18','45','60','70'],T3=['45','60','70'],T2=['45','60'],T1=['18','45','60'];
 
 const Q=[
@@ -241,14 +251,14 @@ const Q=[
 {id:'frottis18',sec:'vacc',ages:['18'],when:isF,t:'Avez-vous réalisé un frottis de dépistage du cancer du col de l’utérus (recommandé à partir de 25 ans) ?',type:'single',opts:[['oui','Oui'],['non','Non'],['nsp','Je ne sais pas'],['nc','Non concernée (moins de 25 ans)']]},
 {id:'gyneco',sec:'vacc',ages:['18'],when:isF,t:'Êtes-vous allée chez le gynécologue dans les 12 derniers mois ?',type:'single',opts:[['oui','Oui'],['non','Non'],['nc','Non concernée']]},
 {id:'ist',sec:'vacc',ages:T4,t:'Êtes-vous dans l’une des situations suivantes ?',type:'multi',opts:[['plus1','Plus d’un(e) partenaire sexuel(le) au cours des 12 derniers mois'],['arret','Souhait d’arrêter le préservatif avec mon nouveau (ma nouvelle) partenaire'],['diag','Mon (ma) partenaire a eu un diagnostic d’IST (VIH, chlamydia, gonocoque, syphilis…)'],['autre','Rapports sexuels ces 12 derniers mois, mais non concerné(e) par ces situations'],['non','Non concerné(e)']],hint:'Plusieurs réponses possibles'},
-{id:'contraception',sec:'vacc',ages:['18'],when:()=>!((A('ist')||[]).includes('non')&&(A('ist')||[]).length===1),t:'Utilisez-vous un moyen de contraception ?',type:'single',opts:[['oui','Oui'],['non','Non'],['nc','Non concerné(e)']]},
+{id:'contraception',sec:'vacc',ages:['18'],when:()=>isF()&&!((A('ist')||[]).includes('non')&&(A('ist')||[]).length===1),t:'Utilisez-vous un moyen de contraception ?',type:'single',opts:[['oui','Oui'],['non','Non'],['nc','Non concerné(e)']]},
 {id:'depistIST',sec:'vacc',ages:['18'],when:()=>(A('ist')||[]).some(x=>['plus1','arret','diag','autre'].includes(x)),t:'Avez-vous déjà réalisé un dépistage des infections sexuellement transmissibles ?',type:'single',opts:YNN},
-{id:'depist45',sec:'vacc',ages:['45'],t:'Avez-vous réalisé un test de dépistage du cancer colorectal et/ou une mammographie de dépistage (recommandés à partir de 50 ans) ?',type:'single',opts:[['oui','Oui'],['non','Non'],['nsp','Je ne sais pas'],['nc','Non concerné(e) (moins de 50 ans)']]},
+{id:'depist45',sec:'vacc',ages:['45'],t:()=>isF()?'Avez-vous réalisé un test de dépistage du cancer colorectal et/ou une mammographie de dépistage (recommandés à partir de 50 ans) ?':'Avez-vous réalisé un test de dépistage du cancer colorectal (recommandé à partir de 50 ans) ?',type:'single',opts:[['oui','Oui'],['non','Non'],['nsp','Je ne sais pas'],['nc','Non concerné(e) (moins de 50 ans)']]},
 {id:'ccr60',sec:'vacc',ages:['60'],t:'Avez-vous réalisé un test de dépistage du cancer colorectal ?',type:'single',opts:DEP4},
 {id:'mammo60',sec:'vacc',ages:['60'],when:isF,t:'Avez-vous réalisé une mammographie de dépistage du cancer du sein ?',type:'single',opts:DEP4},
 {id:'frottis45',sec:'vacc',ages:['45'],when:isF,t:'Avez-vous réalisé un frottis de dépistage du cancer du col de l’utérus ?',type:'single',opts:FROT},
 {id:'frottis60',sec:'vacc',ages:['60'],when:isF,t:'Avez-vous réalisé un frottis de dépistage du cancer du col de l’utérus ?',type:'single',opts:FROT},
-{id:'depist70',sec:'vacc',ages:['70'],t:'Avez-vous réalisé votre mammographie de dépistage du cancer du sein et/ou votre test de dépistage du cancer colorectal ?',type:'single',opts:YNN},
+{id:'depist70',sec:'vacc',ages:['70'],t:()=>isF()?'Avez-vous réalisé votre mammographie de dépistage du cancer du sein et/ou votre test de dépistage du cancer colorectal ?':'Avez-vous réalisé votre test de dépistage du cancer colorectal ?',type:'single',opts:YNN},
 /* --- Addictions --- */
 {id:'alcool',sec:'addic',ages:T1,t:'Au cours de l’année écoulée, concernant votre consommation de boissons alcoolisées :',type:'multi',opts:[['plus2','Je bois plus de 2 verres standards par jour'],['plus10','Je bois plus de 10 verres standards par semaine'],['pas2j','Je n’ai pas au moins 2 jours sans alcool par semaine'],['occas','Je bois de l’alcool sans dépasser ces repères'],['aucun','Je ne bois pas d’alcool']],hint:'Plusieurs réponses possibles'},
 {id:'alcool70',sec:'addic',ages:['70'],t:'Nombre de verres d’alcool consommés sur une semaine habituelle',type:'num',unit:'verres'},
@@ -287,7 +297,13 @@ const Q=[
 {id:'anxiete70',sec:'mental',ages:['70'],t:'Éprouvez-vous de l’anxiété et/ou des sensations soudaines de panique ?',type:'single',opts:YN},
 {id:'violences',sec:'mental',ages:T4,t:'Avez-vous déjà été victime de violences physiques, sexuelles ou psychiques (menaces, chantage, humiliations, coups…), de harcèlement ou de discrimination ?',type:'single',opts:YNN},
 /* --- Priorités --- */
-{id:'sujets',sec:'prio',ages:T4,t:'Souhaitez-vous aborder un ou deux sujets en priorité avec le pharmacien ?',type:'multi',opts:()=>SUJ[S.tr].filter(([k])=>k==='tabac'?(smokerNow()||has('tabac','vape')):k==='alcool'?drinks():true),hint:'Choisissez 1 ou 2 sujets.'},
+{id:'sujets',sec:'prio',ages:T4,t:'Quels sont les un ou deux sujets de santé que vous souhaitez aborder en priorité ?',type:'multi',opts:()=>SUJ[S.tr].filter(([k])=>k==='menopause'?isF():true),hint:'Choisissez 1 ou 2 sujets.'},
+{id:'obj1',sec:'prio',ages:T4,when:()=>(A('sujets')||[]).length>=1,t:()=>sujLabel(0),ph:()=>objEx(0),type:'text',hint:'Quelques mots suffisent.'},
+{id:'gain1',sec:'prio',ages:T4,when:()=>(A('sujets')||[]).length>=1,t:()=>'Gain pour ma santé — '+sujShort(0)+' : qu’est-ce que cela m’apporterait ?',type:'single',opts:ECHO},
+{id:'conf1',sec:'prio',ages:T4,when:()=>(A('sujets')||[]).length>=1,t:()=>'Confiance en ma capacité — '+sujShort(0)+' : pensez-vous y arriver ?',type:'single',opts:ECHO},
+{id:'obj2',sec:'prio',ages:T4,when:()=>(A('sujets')||[]).length>=2,t:()=>sujLabel(1),ph:()=>objEx(1),type:'text',hint:'Quelques mots suffisent.'},
+{id:'gain2',sec:'prio',ages:T4,when:()=>(A('sujets')||[]).length>=2,t:()=>'Gain pour ma santé — '+sujShort(1)+' : qu’est-ce que cela m’apporterait ?',type:'single',opts:ECHO},
+{id:'conf2',sec:'prio',ages:T4,when:()=>(A('sujets')||[]).length>=2,t:()=>'Confiance en ma capacité — '+sujShort(1)+' : pensez-vous y arriver ?',type:'single',opts:ECHO},
 {id:'sujetAutre',sec:'prio',ages:T4,t:'Autre sujet que vous souhaitez aborder (facultatif)',type:'text'}
 ];
 const qVisible=q=>q.ages.includes(S.tr)&&(!q.when||q.when());
@@ -320,7 +336,23 @@ const PRIO={
  cardio:{l:'Tension et risque cardiovasculaire',a:['Faire confirmer la tension par des mesures répétées (automesure) ','Consulter le médecin traitant pour le suivi','Réduire le sel et maintenir une activité physique régulière'],r:[]},
  addic:{l:'Cannabis, autres drogues, jeux',a:['Faire le point sur sa consommation (questionnaire CAST pour le cannabis)','Contacter Drogues info service (0 800 23 13 13) ou Joueurs info service (09 74 75 13 13)','Consulter le médecin traitant ou une consultation d’addictologie'],r:[R_DRO,R_JEU]}
 };
+/* sujets que le bilan suggère de traiter (alertes orange/rouge), hors souhaits du patient : 2 au maximum */
+function suggestedTopics(L){
+  const wish=(A('sujets')||[]).map(SUJ2PRIO),sc={};
+  L.forEach(a=>{if(a.p&&PRIO[a.p]&&(a.l==='R'||a.l==='O')&&!wish.includes(a.p)&&(a.p!=='menopause'||isF()))sc[a.p]=(sc[a.p]||0)+({R:3,O:2}[a.l]);});
+  return Object.keys(sc).sort((a,b)=>sc[b]-sc[a]).slice(0,2);
+}
+const OBJ_EX={tabac:'Ex. : arrêter de fumer d’ici 3 mois, ou passer de 20 à 10 cigarettes par jour',alcool:'Ex. : ne plus boire en semaine et garder l’alcool pour les week-ends',sommeil:'Ex. : m’endormir plus vite et me réveiller moins la nuit',alim:'Ex. : manger 5 fruits et légumes par jour et marcher 30 minutes chaque jour',mental:'Ex. : me sentir moins stressé(e) au travail et mieux gérer mes soucis',ecran:'Ex. : passer moins de 2 heures par jour sur mon téléphone',depistage:'Ex. : savoir quels dépistages je dois faire à mon âge et les planifier',menopause:'Ex. : mieux comprendre mes symptômes et savoir quoi faire',vieillissement:'Ex. : faire des exercices d’équilibre pour ne pas tomber et garder la mémoire',violences:'Ex. : savoir à qui en parler et où trouver de l’aide'};
+const objEx=n=>{const c=(A('sujets')||[])[n];return OBJ_EX[SUJ2PRIO(c)]||'Ex. : dites en quelques mots ce que vous aimeriez changer';};
+/* actions proposées pour un sujet « à envisager » : 3 premières précochées, modifiables par le pharmacien */
+const sactOn=(k,i)=>{const o=S.ph.sact[k];return o&&i in o?o[i]:i<3;};
+const sactList=k=>prioA(k).map((x,i)=>[x,i]).filter(([x,i])=>sactOn(k,i)).map(([x])=>x);
 const SUJ2PRIO=c=>c==='memoire'?'vieillissement':c;
+const sujShort=n=>{const c=(A('sujets')||[])[n];const e=(SUJ[S.tr]||[]).find(([k])=>k===c);return '« '+(e?e[1]:'ce sujet')+' »';};
+const scaleOf=(g,k)=>{if(S.ph[g][k]!=null)return S.ph[g][k];const sj=A('sujets')||[];for(let i=0;i<sj.length;i++){if(SUJ2PRIO(sj[i])===k){const v=A((g==='imp'?'gain':'conf')+(i+1));if(v!=null&&v!=='')return +v;}}return null;};
+const sujLabel=n=>{const c=(A('sujets')||[])[n];const e=(SUJ[S.tr]||[]).find(([k])=>k===c);return 'Votre objectif pour « '+(e?e[1]:'ce sujet')+' », dans vos mots :';};
+/* objectif du patient pour une priorité : saisie du pharmacien si modifiée, sinon réponse du patient */
+const objOf=k=>{if(S.ph.obj[k]!=null&&S.ph.obj[k]!=='')return S.ph.obj[k];const sj=A('sujets')||[];for(let i=0;i<sj.length;i++){if(SUJ2PRIO(sj[i])===k&&A('obj'+(i+1)))return A('obj'+(i+1));}return '';};
 
 /* ============================================================
    SCORES
@@ -383,9 +415,10 @@ function buildAlerts(){
   if(has('thorax','oui'))
     add('R','Cardiovasculaire','cardio','Douleur thoracique à l’effort déclarée.',{act:'Avis médical rapide (consultation sous 24-48 h) ; appeler le 15 si douleur en cours ou au repos.',med:true});
   const sys=num(S.ph.sys),dia=num(S.ph.dia);
+  const ctxTA=(S.ph.poignet?' Mesure au poignet (moins fiable que le brassard) : à confirmer au brassard ou en automesure.':'');
   if(sys!=null&&dia!=null){
-    if(sys>=180||dia>=110)add('R','Cardiovasculaire','cardio','Tension très élevée au comptoir ('+sys+'/'+dia+' mmHg).',{act:'Contrôler après repos ; avis médical le jour même. Appeler le 15 en cas de symptômes (douleur thoracique, déficit neurologique, détresse respiratoire).',med:true});
-    else if(sys>=140||dia>=90)add('O','Cardiovasculaire','cardio','Tension élevée au comptoir ('+sys+'/'+dia+' mmHg).',{act:'À confirmer par des mesures répétées (automesure) ; consultation médicale pour confirmation et suivi.',med:true,svc:'tension'});
+    if(sys>=180||dia>=110)add('R','Cardiovasculaire','cardio','Tension très élevée au comptoir ('+sys+'/'+dia+' mmHg).'+ctxTA,{act:'Contrôler après repos ; avis médical le jour même. Appeler le 15 en cas de symptômes (douleur thoracique, déficit neurologique, détresse respiratoire).',med:true});
+    else if(sys>=140||dia>=90)add('O','Cardiovasculaire','cardio','Tension élevée au comptoir ('+sys+'/'+dia+' mmHg).'+ctxTA,{act:'À confirmer par des mesures répétées (automesure) ; consultation médicale pour confirmation et suivi.',med:true,svc:'tension'});
   }
   if(S.ph.mt==='non')add('O','Parcours de soins','',"Pas de médecin traitant.",{act:'Signaler la situation à la CPAM, avec l’accord du patient.',k:'mt',lab:'Pas de médecin traitant : signalement à la CPAM (avec accord du patient)'});
   /* Corps */
@@ -507,7 +540,7 @@ function buildAlerts(){
   }
   if(tr==='70'){
     const d=A('depist70');
-    if(d!=='oui')add(age<=74?'O':'B','Dépistage','depistage','Dépistage colorectal / mammographie : '+({non:'non réalisé',nsp:'statut inconnu'}[d]||'non renseigné')+'.',{act:age<=74?'Dépistages organisés jusqu’à 74 ans ; kit colorectal remis à l’officine possible ; mammographie pour les femmes.':'Au-delà de 74 ans : discuter de la poursuite avec le médecin traitant.',k:'ccr',lab:'Dépistage colorectal / mammographie : à planifier ou à discuter avec le médecin',svc:'doccr'});
+    if(d!=='oui')add(age<=74?'O':'B','Dépistage','depistage',(fem?'Dépistage colorectal / mammographie : ':'Dépistage colorectal : ')+({non:'non réalisé',nsp:'statut inconnu'}[d]||'non renseigné')+'.',{act:age<=74?'Dépistages organisés jusqu’à 74 ans ; kit colorectal remis à l’officine possible'+(fem?' ; mammographie : prise de rendez-vous.':'.')+'':'Au-delà de 74 ans : discuter de la poursuite avec le médecin traitant.',k:'ccr',lab:(fem?'Dépistage colorectal / mammographie':'Dépistage colorectal')+' : à planifier ou à discuter avec le médecin',svc:'doccr'});
   }
   /* IST */
   const ist=A('ist')||[];
@@ -571,7 +604,7 @@ function qHTML(q){
   if(q.type==='single')body=`<div class="opts">${opts.map(([k,l])=>`<button class="chip ${v===k?'on':''}" data-a="ans" data-q="${q.id}" data-v="${esc(k)}">${esc(l)}</button>`).join('')}</div>`;
   else if(q.type==='multi')body=`<div class="opts">${opts.map(([k,l])=>`<button class="chip ${Array.isArray(v)&&v.includes(k)?'on':''}" data-a="multi" data-q="${q.id}" data-v="${esc(k)}">${esc(l)}</button>`).join('')}</div>`;
   else if(q.type==='num')body=`<div class="numrow"><input type="number" inputmode="decimal" data-bind="ans.${q.id}" value="${esc(v==null?'':v)}"><span class="mut">${q.unit||''}</span></div>`;
-  else body=`<textarea data-bind="ans.${q.id}" placeholder="…">${esc(v||'')}</textarea>`;
+  else body=`<textarea data-bind="ans.${q.id}" placeholder="${esc(q.ph?q.ph():'…')}">${esc(v||'')}</textarea>`;
   return `<div class="q"><div class="qt">${esc(t)}</div>${q.hint?`<div class="hint">${esc(q.hint)}</div>`:''}${body}</div>`;
 }
 function answered(sid){return secQs(sid).filter(q=>{const v=S.ans[q.id];return v!==undefined&&v!==''&&!(Array.isArray(v)&&!v.length);}).length;}
@@ -611,9 +644,9 @@ function vCockpit(){
   // initialisation des services
   if(!S.ph.svcInit){L.forEach(a=>{if(a.svc&&a.l!=='B')S.ph.services[a.svc]=true;});S.ph.svcInit=true;}
   // score des thèmes
-  const sc={};L.forEach(a=>{if(a.p&&PRIO[a.p])sc[a.p]=(sc[a.p]||0)+({R:3,O:2,B:1}[a.l]);});
-  wish.forEach(w=>{sc[w]=(sc[w]||0)+2;});
-  const sug=Object.keys(sc).sort((a,b)=>sc[b]-sc[a]).slice(0,2);
+  // les souhaits du patient sont retenus d’office comme priorités (modifiables)
+  if(!S.ph.priosInit){S.ph.prios=wish.filter((k,i)=>PRIO[k]&&wish.indexOf(k)===i).slice(0,2);}
+  const sug=suggestedTopics(L);
   const todo=todoList(L);
   const ph=S.ph;
   return `<div class="card"><h2>${esc(S.name)} ${esc(S.first)} · ${TR[S.tr]}</h2>
@@ -630,15 +663,17 @@ function vCockpit(){
 
 
   <div class="card" style="margin-top:16px"><h2>Données du pharmacien</h2>
+   <div class="row"><div><label class="f">Nom de la pharmacie</label><input type="text" data-bind="pharm" value="${esc(S.pharm)}" autocomplete="off"></div>
+   <div><label class="f">Nom du professionnel</label><input type="text" data-bind="ph.pharmacien" value="${esc(S.ph.pharmacien)}" autocomplete="off" placeholder="Prénom NOM"></div></div>
    <div class="row">
     <div><label class="f">Tension (mmHg)</label><div class="numrow" style="max-width:none"><input type="number" inputmode="numeric" placeholder="Sys" data-bind="ph.sys" value="${esc(ph.sys)}"><span>/</span><input type="number" inputmode="numeric" placeholder="Dia" data-bind="ph.dia" value="${esc(ph.dia)}"></div></div>
+    <label class="chk" style="margin-top:6px"><input type="checkbox" data-bind="ph.poignet" data-rr ${ph.poignet?'checked':''}><span>Tension prise au poignet (tensiomètre de poignet)</span></label>
     <div><label class="f">Médecin traitant</label><div class="opts">${[['oui','Oui'],['non','Non']].map(([k,l])=>`<button class="chip sm ${ph.mt===k?'on':''}" data-a="ph" data-k="mt" data-v="${k}">${l}</button>`).join('')}</div></div>
     <div><label class="f">Nb de médicaments (si différent)</label><input type="number" inputmode="numeric" data-bind="ph.nbMeds" placeholder="${esc(A('nbMeds')||'')}" value="${esc(ph.nbMeds)}"></div>
    </div>
    <div class="row" style="margin-top:10px">
     <div><label class="f">Autre score alcool (FACE, AUDIT)</label><input type="text" data-bind="ph.face" value="${esc(ph.face)}"></div>
     <div><label class="f">Autre score cannabis</label><input type="text" data-bind="ph.cast" value="${esc(ph.cast)}"></div>
-    <div><label class="f">Pharmacien (nom)</label><input type="text" data-bind="ph.pharmacien" value="${esc(ph.pharmacien)}"></div>
    </div>
    <label class="chk"><input type="checkbox" data-bind="ph.interact" data-rr ${ph.interact?'checked':''}><span>Médicament ou association contre-indiquée repérée</span></label>
    <label class="chk"><input type="checkbox" data-bind="ph.mdph" ${ph.mdph?'checked':''}><span>Situation de handicap (inscrit MDPH)</span></label>
@@ -650,20 +685,24 @@ function vCockpit(){
    <div class="note" style="margin-top:8px">Ces alertes sont une aide au repérage, pas un diagnostic. En cas de suspicion de pathologie non connue ou non suivie, le bilan doit être suivi d’une consultation médicale.</div></div>
 
   <div class="card"><h2>Priorités (1 ou 2) — décision partagée</h2>
-   <p class="mut">Étoile = souhait du patient · « suggéré » = d’après les alertes et les souhaits.</p>
-   <div class="grid">${Object.keys(PRIO).map(k=>`<button class="theme ${ph.prios.includes(k)?'on':''}" data-a="prio" data-v="${k}"><b>${esc(PRIO[k].l)}</b>${wish.includes(k)?'<span class="badge b-G">★ souhait</span>':''}${sug.includes(k)?'<span class="badge b-B">suggéré</span>':''}</button>`).join('')}</div>
+   <p class="mut">Étoile = souhait du patient, retenu d’office · « suggéré » = sujet à traiter ou à envisager d’après le bilan (repris dans les conseils de l’officine).</p>
+   <div class="grid">${Object.keys(PRIO).filter(k=>k!=='menopause'||isF()).map(k=>`<button class="theme ${ph.prios.includes(k)?'on':''}" data-a="prio" data-v="${k}"><b>${esc(PRIO[k].l)}</b>${wish.includes(k)?'<span class="badge b-G">★ souhait</span>':''}${sug.includes(k)?'<span class="badge b-B">suggéré</span>':''}</button>`).join('')}</div>
    ${ph.prios.map(k=>{
      const P0=PRIO[k];
      return `<div class="card" style="margin-top:14px;background:#fafdfc"><h3 style="margin-top:0">${esc(P0.l)}</h3>
-      <label class="f">Objectif du patient (dans ses mots)</label><textarea data-bind="ph.obj.${k}">${esc(ph.obj[k]||'')}</textarea>
-      <div class="row" style="margin-top:10px"><div><label class="f">Importance de changer</label><div class="opts">${ECH.map((l,n)=>`<button class="chip sm ${ph.imp[k]===n?'on':''}" data-a="scale" data-g="imp" data-k="${k}" data-v="${n}">${l}</button>`).join('')}</div></div>
-      <div><label class="f">Confiance en sa capacité</label><div class="opts">${ECH.map((l,n)=>`<button class="chip sm ${ph.conf[k]===n?'on':''}" data-a="scale" data-g="conf" data-k="${k}" data-v="${n}">${l}</button>`).join('')}</div></div></div>
+      <label class="f">Objectif du patient (dans ses mots, repris de ses réponses)</label><textarea data-bind="ph.obj.${k}">${esc(objOf(k))}</textarea>
+      <div class="row" style="margin-top:10px"><div><label class="f">Gain pour ma santé</label><div class="opts">${ECH.map((l,n)=>`<button class="chip sm ${scaleOf('imp',k)===n?'on':''}" data-a="scale" data-g="imp" data-k="${k}" data-v="${n}">${l}</button>`).join('')}</div></div>
+      <div><label class="f">Confiance en ma capacité</label><div class="opts">${ECH.map((l,n)=>`<button class="chip sm ${scaleOf('conf',k)===n?'on':''}" data-a="scale" data-g="conf" data-k="${k}" data-v="${n}">${l}</button>`).join('')}</div></div></div>
       <label class="f" style="margin-top:12px">Actions concrètes retenues</label>
-      ${P0.a.map((x,i)=>`<label class="chk"><input type="checkbox" data-a="act" data-k="${k}" data-i="${i}" ${(ph.acts[k]||{})[i]?'checked':''}><span>${esc(x)}</span></label>`).join('')}
+      ${prioA(k).map((x,i)=>`<label class="chk"><input type="checkbox" data-a="act" data-k="${k}" data-i="${i}" ${(ph.acts[k]||{})[i]?'checked':''}><span>${esc(x)}</span></label>`).join('')}
       <label class="f">Autre action / précision</label><textarea data-bind="ph.extra.${k}">${esc(ph.extra[k]||'')}</textarea>
       <label class="f" style="margin-top:8px">Suivi prévu (date, rendez-vous à l’officine…)</label><input type="text" data-bind="ph.suivi.${k}" value="${esc(ph.suivi[k]||'')}">
      </div>`;}).join('')}
   </div>
+  ${sug.length?`<div class="card"><h2>Sujets à traiter, ou au moins à envisager</h2>
+   <p class="mut">Suggérés par le bilan, hors souhaits du patient (qui sont traités d’office ci-dessus). Cochez les actions à retenir : elles figureront dans les conseils de l’officine ; un sujet sans action cochée n’apparaît pas.</p>
+   ${sug.map(k=>`<div style="border-top:1px solid #edf2f2;padding:10px 0"><b>${esc(PRIO[k].l)}</b><div class="mut" style="font-size:13px">${esc(L.filter(a=>a.p===k&&(a.l==='R'||a.l==='O')).map(a=>a.txt).filter((x,i,r)=>x&&r.indexOf(x)===i).join(' '))}</div>
+   ${prioA(k).map((x,i)=>`<label class="chk"><input type="checkbox" data-a="sact" data-k="${k}" data-i="${i}" ${sactOn(k,i)?'checked':''}><span>${esc(x)}</span></label>`).join('')}</div>`).join('')}</div>`:''}
 
   <div class="card"><h2>Parcours : dépistages, vaccinations, orientations</h2>
    <p class="mut">Le plan imprimé comporte, pour chaque ligne, des cases à cocher à la main (À faire · Fait lors du bilan · Prescription remise · Déjà à jour) et le commentaire ci-dessous, proposé d’après les réponses et modifiable.</p>
@@ -671,7 +710,7 @@ function vCockpit(){
   </div>
 
   <div class="card"><h2>Services de l’officine à proposer</h2>
-   ${CONFIG.services.map(s=>`<label class="chk"><input type="checkbox" data-a="svc" data-k="${s.id}" ${ph.services[s.id]?'checked':''}><span>${esc(s.label)}</span></label>`).join('')}
+   ${CONFIG.services.filter(s=>!(s.id==='doccr'&&S.tr==='18')).map(s=>`<label class="chk"><input type="checkbox" data-a="svc" data-k="${s.id}" ${ph.services[s.id]?'checked':''}><span>${esc(s.label)}</span></label>`).join('')}
    <div class="note w" style="margin-top:10px"><b>Facturation</b> : acte <b>RDP</b>, 30 € (TVA 0 %, prise en charge à 100 %), une seule fois par personne et par tranche d’âge — à vérifier avant de réaliser le bilan. Un seul acte en sus est possible, et uniquement si un besoin a été identifié pendant le bilan : vaccination (RVA) ou remise du kit de dépistage colorectal. Aucun dépassement.</div></div>
 
   <div class="card"><h2>Commentaires du pharmacien</h2><textarea data-bind="ph.notes" style="min-height:170px">${esc(notesOf(L))}</textarea>
@@ -681,16 +720,26 @@ function vCockpit(){
 
 /* ---------- Documents ---------- */
 function sheetHead(titre){
-  return `<div class="lh"><div><h1>${esc(titre)}</h1><div class="sm">Mon Bilan Prévention — ${TR[S.tr]}</div></div><div style="text-align:right"><b>${esc(CONFIG.pharmacie)}</b><div class="sm">${esc(CONFIG.ville)}</div><div class="sm">Date du bilan : ${today()}</div></div></div>`;
+  return `<div class="lh"><div><h1>${esc(titre)}</h1><div class="sm">Mon Bilan Prévention — ${TR[S.tr]}</div></div><div style="text-align:right"><b>${esc(S.pharm||CONFIG.pharmacie)}</b><div class="sm">${esc(CONFIG.ville)}</div><div class="sm">Date et heure du bilan : ${stamp()}</div></div></div>`;
 }
 function ident(){
   return `<table><tr><td><b>Patient</b> : ${esc(S.name.toUpperCase())} ${esc(S.first)}</td><td><b>Tranche d’âge</b> : ${TR[S.tr]}</td><td><b>Genre</b> : ${S.sex==='F'?'Femme':S.sex==='H'?'Homme':'Autre'}</td></tr>
-  <tr><td colspan="3"><b>Professionnel</b> : ${esc(S.ph.pharmacien||'………………………………')}, pharmacien — ${esc(CONFIG.pharmacie)}, ${esc(CONFIG.ville)}</td></tr></table>`;
+  <tr><td colspan="3"><b>Professionnel</b> : ${esc(proName()||'Dr ………………………………')}, pharmacien — ${esc(S.pharm||CONFIG.pharmacie)}, ${esc(CONFIG.ville)}</td></tr></table>`;
+}
+/* Actions proposées selon la tranche d’âge et le genre (pas de dépistage du sein / col chez l’homme, pas de colorectal ni sein avant 45 ans) */
+function prioA(k){
+  let a=PRIO[k].a;
+  if(k==='depistage'){
+    a=a.filter(x=>!(/colorectal/i.test(x)&&S.tr==='18'));
+    a=a.filter(x=>!(/mammographie|frottis/i.test(x)));
+    if(isF())a.splice(a.length-1,0,S.tr==='18'?'Prendre rendez-vous pour le frottis (à partir de 25 ans)':'Prendre rendez-vous pour la mammographie (dès 50 ans) ou le frottis selon mon cas');
+  }
+  return a;
 }
 function prioList(){return S.ph.prios;}
 function chosenActs(k){
   const sel=S.ph.acts[k]||{};
-  const arr=PRIO[k].a.filter((_,i)=>sel[i]);
+  const arr=prioA(k).filter((_,i)=>sel[i]);
   (S.ph.extra[k]||'').split('\n').map(s=>s.trim()).filter(Boolean).forEach(s=>arr.push(s));
   return arr;
 }
@@ -743,12 +792,12 @@ function docPlanBody(){
   const res=[];P.forEach(k=>PRIO[k].r.forEach(r=>{if(!res.includes(r))res.push(r);}));
   return '<h2>Mes priorités en santé</h2>'+
   (P.length?P.map((k,i)=>`<div class="box"><b>Priorité ${i+1} : ${esc(PRIO[k].l)}</b>
-    ${S.ph.obj[k]?`<div><i>Mon objectif :</i> ${esc(S.ph.obj[k])}</div>`:''}
-    ${(S.ph.imp[k]!=null||S.ph.conf[k]!=null)?`<div class="sm">Importance du changement : ${S.ph.imp[k]!=null?ECH[S.ph.imp[k]]:'—'} · Confiance : ${S.ph.conf[k]!=null?ECH[S.ph.conf[k]]:'—'}</div>`:''}
+    ${objOf(k)?`<div><i>Mon objectif :</i> ${esc(objOf(k))}</div>`:''}
+    ${(scaleOf('imp',k)!=null||scaleOf('conf',k)!=null)?`<div class="sm">Gain pour ma santé : ${scaleOf('imp',k)!=null?ECH[scaleOf('imp',k)]:'—'} · Confiance en ma capacité : ${scaleOf('conf',k)!=null?ECH[scaleOf('conf',k)]:'—'}</div>`:''}
     <div><i>Actions concrètes :</i></div><ul>${chosenActs(k).map(a=>`<li>${esc(a)}</li>`).join('')||'<li>………………………………………………</li>'}</ul>
     ${S.ph.suivi[k]?`<div><i>Suivi prévu :</i> ${esc(S.ph.suivi[k])}</div>`:''}</div>`).join(''):'<p><i>Aucune priorité définie.</i></p>')+
   '<h2>Orientations, dépistages et vaccinations</h2>'+
-  (todo.length?`<table><tr><th style="width:28%">Action</th><th style="width:24%">Statut (à cocher)</th><th>Commentaire</th></tr>${todo.map(([k,lab])=>`<tr><td>${esc(lab)}</td><td class="sm">☐ À faire<br>☐ Fait lors du bilan<br>☐ Prescription / orientation remise<br>☐ Déjà à jour</td><td class="sm">${esc(comOf(k,L)).replace(/\n/g,'<br>')}</td></tr>`).join('')}</table>`:'<p>Aucune orientation particulière à ce jour.</p>')+
+  (todo.length?`<table><tr><th style="width:28%">Action</th><th style="width:24%">Statut (à cocher)</th><th>Commentaire</th></tr>${todo.map(([k,lab])=>{const rf=k==='consult'?L.some(a=>a.l==='R'):L.some(a=>a.k===k&&a.l==='R');const B=x=>rf?'<b>'+x+'</b>':x;return `<tr><td>${B(esc(lab))}</td><td class="sm">☐ À faire<br>☐ Fait lors du bilan<br>☐ Prescription / orientation remise<br>☐ Déjà à jour</td><td class="sm">${B(esc(comOf(k,L)).replace(/\n/g,'<br>'))}</td></tr>`;}).join('')}</table>`:'<p>Aucune orientation particulière à ce jour.</p>')+
   (res.length?'<h2>Ressources utiles</h2><ul>'+res.map(r=>`<li>${esc(r)}</li>`).join('')+'</ul>':'')+
   '';
 }
@@ -762,7 +811,7 @@ function docFicheBody(){
   const li=(b,t)=>`<div>${ck(b)} ${t}</div>`;
   const sys=S.ph.sys,dia=S.ph.dia;
   return '<h1 style="break-before:page;page-break-before:always;font-size:19px;margin:0 0 8px">Fiche d’aide au repérage des risques</h1>'+
-  `<table><tr><td>Taille : ${heightM()?(heightM()*100).toFixed(0)+' cm':'……'} · Poids : ${esc(A('poids')||'……')} kg${bmi?' · IMC '+bmi.toFixed(1):''}</td><td>Pression artérielle : ${sys&&dia?esc(sys)+'/'+esc(dia)+' mmHg':'……/…… mmHg'}</td></tr>
+  `<table><tr><td>Taille : ${heightM()?(heightM()*100).toFixed(0)+' cm':'……'} · Poids : ${esc(A('poids')||'……')} kg${bmi?' · IMC '+bmi.toFixed(1):''}</td><td>Pression artérielle : ${sys&&dia?esc(sys)+'/'+esc(dia)+' mmHg':'……/…… mmHg'}${S.ph.poignet?' — <b>tension prise au poignet</b>':''}</td></tr>
   <tr><td>Médecin traitant : ${S.ph.mt==='oui'?'Oui':S.ph.mt==='non'?'Non (signalement CPAM à proposer)':'……'}</td><td>Situation de handicap (MDPH) : ${S.ph.mdph?'Oui':'Non'}</td></tr>
   <tr><td>Antécédents médicaux : ${mal.length&&!mal.includes('aucune')?'Oui':'Non'}</td><td>Antécédents familiaux : ${has('famille','oui')?'Oui':has('famille','non')?'Non':'—'}</td></tr></table>`+
   '<div class="g2"><div>'+
@@ -771,17 +820,17 @@ function docFicheBody(){
   '<h2>État de santé actuel</h2>'+
   li(has('traitement','oui'),'Suit un traitement'+(nbM()?' ('+nbM()+' médicaments)':''))+li(S.ph.interact,'Médicament ou association contre-indiquée')+li((nbM()||0)>=5,'Polymédication')+
   li(has('toux','oui')||has('touxGrasse','oui')||has('essouffle','oui'),'Toux fréquente / crachats / essoufflement')+li(has('poidsVar','maigre')||has('poidsVar','prise'),'Variation de poids : '+(has('poidsVar','maigre')?'perte':has('poidsVar','prise')?'gain':'non'))+
-  li(has('apnees','oui'),'Pauses respiratoires / ronflements importants')+li(has('menopause','oui'),'Symptômes de ménopause')+
+  li(has('apnees','oui'),'Pauses respiratoires / ronflements importants')+(isF()?li(has('menopause','oui'),'Symptômes de ménopause'):'')+
   `<div>Suivi : ophtalmo ${has('vue','oui')?'à explorer':'—'} · dentaire ${has('dentiste','oui')?'oui':has('dentiste','non')?'non':'—'}</div>`+
   '<h2>Activité physique et sédentarité</h2>'+
   li(has('act30','0')||has('act30','1-2'),'Activité physique insuffisante')+li(has('assis','>7')||has('assis','4-7'),'Sédentarité')+li(has('ecran','>4'),'Temps d’écran important')+
   '<h2>Alimentation</h2>'+li(has('gras','j')||has('gras','sem')||has('gras70','oui'),'Alimentation trop grasse / sucrée / salée')+li(has('fruits','rare')||has('fruits','jamais')||has('fruits','tps')||has('fruits70','n'),'Consommation de fruits et légumes insuffisante')+
-  '<h2>Santé sexuelle</h2>'+li(ist.some(x=>['plus1','arret','diag'].includes(x)),'Exposition aux IST')+li(has('contraception','non')||has('regles','oui'),'Contraception à revoir / douleurs de règles')+
+  '<h2>Santé sexuelle</h2>'+li(ist.some(x=>['plus1','arret','diag'].includes(x)),'Exposition aux IST')+(isF()?li(has('contraception','non')||has('regles','oui'),'Contraception à revoir / douleurs de règles'):'')+
   '<h2>Violences</h2>'+li(has('violences','oui'),'Violences, harcèlement, discrimination (en cours ou passés)')+
   '</div><div>'+
   '<h2>Santé mentale</h2>'+
   `<div>Score PHQ-4 : ${P?P.total+'/12 ('+P.niv+'; anxiété '+P.anx+', dépression '+P.dep+')':'……'}</div>`+
-  li(has('idees','idees')||has('idees','tentative'),'Idées suicidaires / antécédent de passage à l’acte')+li(has('maladies','psy')||has('depTraite','oui'),'Antécédent de troubles anxio-dépressifs / TCA')+
+  (()=>{const r=has('idees','idees')||has('idees','tentative');return li(r,r?'<b>Idées suicidaires / antécédent de passage à l’acte</b>':'Idées suicidaires / antécédent de passage à l’acte');})()+li(has('maladies','psy')||has('depTraite','oui'),'Antécédent de troubles anxio-dépressifs / TCA')+
   li(has('sommeilPb','souvent')||has('sommeilPb','somnifere')||has('sommeilDuree','<6')||has('sommeil70','souvent')||has('sommeil70','toujours'),'Sommeil insuffisant et/ou de mauvaise qualité')+li(SC&&SC.pos,'Suspicion de trouble du comportement alimentaire'+(SC?' (SCOFF '+SC.total+'/5)':''))+
   '<h2>Pratiques addictives et usages à risque</h2>'+
   li(smokerNow()||has('tabac','vape'),'Tabac / vapotage'+(F?' — Fagerström simplifié : '+F.total+'/6':''))+
@@ -790,9 +839,9 @@ function docFicheBody(){
   '<h2>Parcours de santé, vaccinations, dépistages</h2>'+
   li(has('vaccins','non')||has('vaccins','nsp'),'Vaccinations / rappels à réaliser')+
   li(L.some(a=>a.k==='ist'),'Dépistage VIH / IST à effectuer')+
-  li(L.some(a=>a.k==='ccr'),'Dépistage organisé du cancer colorectal')+
-  li(L.some(a=>a.k==='sein'||(a.k==='ccr'&&isF()&&S.tr!=='18')),'Mammographie de dépistage (femmes, 50-74 ans)')+
-  li(L.some(a=>a.k==='col'),'Dépistage du cancer du col de l’utérus')+
+  (S.tr!=='18'?li(L.some(a=>a.k==='ccr'),'Dépistage organisé du cancer colorectal'):'')+
+  (isF()&&S.tr!=='18'?li(L.some(a=>a.k==='sein'||a.k==='ccr'),'Mammographie de dépistage (50-74 ans)'):'')+
+  (isF()?li(L.some(a=>a.k==='col'),'Dépistage du cancer du col de l’utérus'):'')+
   li(L.some(a=>a.med),'Consultation médicale recommandée')+
   '<h2>Santé et environnement</h2>'+li(false,'Habitat / exposition professionnelle / bruit (à explorer)')+
   '</div></div>'+
@@ -806,7 +855,7 @@ function docConseils(){
   const tag=f=>{const m=L.filter(f);if(!m.length)return '';
     const red=m.some(a=>a.l==='R'),txt=m.filter(a=>a.l==='R'||a.l==='O').map(a=>a.txt).filter((x,i,r)=>x&&r.indexOf(x)===i);
     if(!txt.length)return '';
-    return `<div class="sm" style="margin:2px 0 4px"><b style="color:${red?'#b00020':'#b35c00'}">${red?'● Rouge — orientation médecin':'● À traiter'}</b> : ${txt.map(esc).join(' ')}</div>`;};
+    return `<div class="sm" style="margin:2px 0 4px"><b style="color:${red?'#b00020':'#b35c00'}">${red?'● Rouge — orientation médecin':'● À traiter'}</b> : ${red?'<b>':''}${txt.map(esc).join(' ')}${red?'</b>':''}</div>`;};
   const add=(t,items,f)=>blocks.push(`<h2>${t}</h2>${f?tag(f):''}<ul>${items.map(i=>`<li>${i}</li>`).join('')}</ul>`);
   if(smokerNow()||P.includes('tabac'))add('Arrêt du tabac',['Substituts nicotiniques : choisir la forme et le dosage selon le score de dépendance, associer patch + forme orale si dépendance forte, puis réévaluer à 2-4 semaines.','Conseiller un suivi à l’officine et l’appel à Tabac info service (3989).'],a=>a.p==='tabac');
   if(P.includes('sommeil')||L.some(a=>a.p==='sommeil'))add('Sommeil',['<b>Règles hygiéno-diététiques</b> (en premier, pendant 3 à 4 semaines) : horaires de lever et de coucher réguliers, y compris le week-end ; lumière naturelle le matin ; chambre sombre, calme et fraîche (environ 18 °C) ; écrans coupés 1 heure avant le coucher ; pas de caféine (café, thé, cola) après 14-15 h ; alcool et repas copieux à éviter le soir ; activité physique régulière mais pas dans les 2 heures avant le coucher ; sieste limitée à 20-30 minutes avant 15 h ; lit réservé au sommeil, se lever si l’endormissement dépasse 20 minutes.','<b>Complémentation à base de plantes</b> en appui des règles : valériane, passiflore, mélisse, aubépine ou escholtzia (en association ou seules), plutôt le soir, sur 2 à 4 semaines. Précautions : somnolence possible, effet additif avec l’alcool et les médicaments sédatifs, vigilance en cas de conduite, de grossesse, d’allaitement ou de traitement associé (interactions à vérifier).','<b>En cas d’échec après 3 à 4 semaines</b> : orienter vers le médecin traitant. Si l’insomnie dure depuis plus de 3 mois, résiste aux mesures ou s’accompagne de ronflements, de pauses respiratoires ou d’une somnolence diurne marquée : demander au médecin traitant une orientation vers une clinique ou un centre du sommeil.'],a=>a.p==='sommeil');
@@ -816,18 +865,24 @@ function docConseils(){
   return sheetHead('Conseils de l’officine')+ident()+
   '<div class="note w" style="margin:8px 0"><b>Document de conseil officinal, distinct du Plan personnalisé de prévention.</b> Il n’est pas destiné au DMP ni à la facturation du bilan.</div>'+
   (()=>{const R=L.filter(a=>a.l==='R').map(a=>a.txt).filter((x,i,r)=>r.indexOf(x)===i);
-    return R.length?`<div class="box" style="border-color:#b00020"><b style="color:#b00020">● Rouge — orientation médecin</b><div class="sm">${R.map(esc).join(' ')}</div></div>`:'';})()+
+    return R.length?`<div class="box" style="border-color:#b00020"><b style="color:#b00020">● Rouge — orientation médecin</b><div class="sm"><b>${R.map(esc).join(' ')}</b></div></div>`:'';})()+
+  (()=>{const sg=suggestedTopics(L).filter(k=>sactList(k).length);if(!sg.length)return '';
+    const withBlock={tabac:1,sommeil:1,alim:1};
+    return '<div class="box"><b>Sujets à traiter, ou au moins à envisager, d’après le bilan</b><div class="sm">Ces sujets n’ont pas été choisis comme priorités, mais le bilan suggère d’y prêter attention.</div>'+sg.map(k=>{
+      const why=L.filter(a=>a.p===k&&(a.l==='R'||a.l==='O')).map(a=>a.txt).filter((x,i,r)=>x&&r.indexOf(x)===i).join(' ');
+      return `<div style="margin-top:6px"><b>${esc(PRIO[k].l)}</b>${why?' — '+esc(why):''}<ul>${sactList(k).map(x=>`<li>${esc(x)}</li>`).join('')}</ul>${withBlock[k]?'<div class="sm">Voir aussi les conseils détaillés ci-dessous.</div>':''}</div>`;}).join('')+'</div>';})()+
   blocks.join('')+
   (sv.length?'<h2>Services proposés à l’officine</h2><ul>'+sv.map(s=>`<li>${s}</li>`).join('')+'</ul>':'')+
   '<p class="sm">Les conseils ci-dessus ne remplacent pas un avis médical.</p>';
 }
+const noteHTML=n=>n.split('\n').map(l=>/^Drapeau rouge/.test(l)?'<b>'+esc(l)+'</b>':esc(l)).join('<br>');
 function docPlanFiche(){
   const L=buildAlerts(),n=notesOf(L);
   return sheetHead('Plan personnalisé de prévention')+ident()+docPlanBody()+docFicheBody()+
-  '<h2>Commentaires du professionnel</h2><div class="box" style="min-height:44px">'+(n?esc(n).replace(/\n/g,'<br>'):'')+'</div>'+
+  '<h2>Commentaires du professionnel</h2><div class="box" style="min-height:44px">'+(n?noteHTML(n):'')+'</div>'+
   `<div class="box" style="margin-top:12px">${ck(true)} Remis au patient &nbsp; ${ck(S.ph.transmis)} Transmis au médecin traitant (DMP)<br>
   <span class="sm">Ce plan est un outil de prévention établi avec le patient ; il ne constitue pas un diagnostic. En cas de symptôme, consulter un médecin.</span></div>
-  <p style="margin-top:14px">Signature du pharmacien : ………………………………………</p>`;
+  <p style="margin-top:14px">Signature du pharmacien : <b>${esc(proName()||'Dr ………………………………')}</b> — ${esc(S.pharm||CONFIG.pharmacie)} · ${stamp()}</p>`;
 }
 const DOCS={ppp:['Plan personnalisé + fiche de repérage',docPlanFiche],conseils:['Conseils de l’officine',docConseils]};
 function vDocs(){
@@ -858,6 +913,7 @@ document.addEventListener('input',e=>{
 });
 document.addEventListener('change',e=>{
   const el=e.target;if(!el.dataset)return;
+  if(el.dataset.a==='sact'){const k=el.dataset.k,i=+el.dataset.i;S.ph.sact[k]=S.ph.sact[k]||{};S.ph.sact[k][i]=el.checked;return;}
   if(el.dataset.a==='act'){const k=el.dataset.k,i=+el.dataset.i;S.ph.acts[k]=S.ph.acts[k]||{};S.ph.acts[k][i]=el.checked;return;}
   if(el.dataset.a==='svc'){S.ph.services[el.dataset.k]=el.checked;return;}
   if(!el.dataset.bind)return;
@@ -867,12 +923,12 @@ document.addEventListener('change',e=>{
 document.addEventListener('click',e=>{
   const el=e.target.closest('[data-a]');if(!el)return;
   const a=el.dataset.a;
-  if(a==='act'||a==='svc')return;
+  if(a==='act'||a==='svc'||a==='sact')return;
   const d=el.dataset;
   switch(a){
-    case 'reset':if(S.view==='home'||confirm('Effacer toutes les données du patient et recommencer ?')){S=fresh();render();window.scrollTo(0,0);}break;
+    case 'reset':if(S.view==='home'||confirm('Effacer toutes les données du patient et recommencer ?')){const keep=[S.pharm,S.ph.pharmacien];S=fresh();S.pharm=keep[0];S.ph.pharmacien=keep[1];render();window.scrollTo(0,0);}break;
     case 'sex':S.sex=d.v;rr();break;
-    case 'start':S.sec=0;S.unlocked=false;go('quest');break;
+    case 'start':S.t0=new Date().toISOString();S.sec=0;S.unlocked=false;go('quest');break;
     case 'ans':S.ans[d.q]=S.ans[d.q]===d.v?undefined:d.v;rr();break;
     case 'multi':{
       const q=Q.find(x=>x.id===d.q);const excl=['aucune','aucun','non','occas'];
@@ -890,8 +946,8 @@ document.addEventListener('click',e=>{
     case 'tolock':go(S.unlocked?'cockpit':'lock');break;
     case 'unlock':{const v=$('#pin').value;if(v===CONFIG.pin){S.unlocked=true;go('cockpit');}else{toast('Code incorrect');$('#pin').value='';}break;}
     case 'ph':S.ph[d.k]=S.ph[d.k]===d.v?'':d.v;rr();break;
-    case 'scale':S.ph[d.g][d.k]=S.ph[d.g][d.k]===+d.v?undefined:+d.v;rr();break;
-    case 'prio':{const p=S.ph.prios;const i=p.indexOf(d.v);if(i>=0)p.splice(i,1);else if(p.length>=2)toast('2 priorités maximum');else p.push(d.v);rr();break;}
+    case 'scale':S.ph[d.g][d.k]=+d.v;rr();break;
+    case 'prio':{S.ph.priosInit=true;const p=S.ph.prios;const i=p.indexOf(d.v);if(i>=0)p.splice(i,1);else if(p.length>=2)toast('2 priorités maximum');else p.push(d.v);rr();break;}
     case 'docs':S.doc='ppp';go('docs');break;
     case 'doc':S.doc=d.v;rr();break;
     case 'back2c':go('cockpit');break;
